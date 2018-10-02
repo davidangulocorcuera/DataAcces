@@ -1,22 +1,18 @@
+import javax.naming.ldap.Control;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Controller extends BbddModel {
-    BbddModel bbddModel = new BbddModel();
-    FileManagerModel fileManagerModel = new FileManagerModel();
+    DataManager acces;
 
-    public FileManagerModel getFileManagerModel() {
-        return fileManagerModel;
+
+    public DataManager getAcces() {
+        return acces;
     }
 
-    public void setFileManagerModel(FileManagerModel fileManagerModel) {
-        this.fileManagerModel = fileManagerModel;
+    public void DataManager(DataManager acces) {
+        this.acces = acces;
     }
 
-    public BbddModel getBbddModel() {
-        return bbddModel;
-    }
 
-    public void setBbddModel(BbddModel bbddModel) {
-        this.bbddModel = bbddModel;
-    }
 }

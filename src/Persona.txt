@@ -1,4 +1,18 @@
-id: 53467387245name: david
-first_characteristic: hola
-second_characteristic: hola
-third_characteristichola
+id: 12
+name: ww
+first_characteristic: ae
+second_characteristic: awe
+third_characteristic: awe
+*
+id: 13
+name: hgdhg
+first_characteristic: fdv
+second_characteristic: ferv
+third_characteristic: er
+*
+id: 13
+name: hgdhg
+first_characteristic: fdv
+second_characteristic: ferv
+third_characteristic: er
+*

@@ -50,7 +50,7 @@ public class BbddModel implements DataManager {
 
 
     @Override
-    public void addEntity(String str_file, Entity entitie) throws FileNotFoundException, IOException  {
+    public void addEntity( Entity entitie) throws FileNotFoundException, IOException  {
         // comprobamos que el id no este ya en la base de datos, en ese caso no realizaremos el insert
         boolean bl_ok = true;
         try (PreparedStatement stmt = conexion.prepareStatement("SELECT * FROM personas")) {
@@ -99,13 +99,27 @@ public class BbddModel implements DataManager {
 
     @Override
     public HashMap<String, Entity> saveEntities (HashMap<String, Entity> hm_entities) {
-
-
-        return  hm_entities;
+        try (PreparedStatement stmt = conexion.prepareStatement("SELECT * FROM personas")) { // Extrae listado de personas
+            ResultSet rs = stmt.executeQuery(); // Almacena resultados
+            while (rs.next()) { // Itera resultados
+                Entity entitie = new Entity(
+                                            rs.getInt("ID")+ "",
+                                            rs.getString("Nombre"),
+                                            rs.getString("CaracteristicaUno"),
+                                            rs.getString("CaracteristicaDos"),
+                                            rs.getString("CaracteristicaTres")
+                                    ); // Extraes parametros e instancias objeto (Entity)
+                hm_entities.put(rs.getInt("ID")+ " ", entitie); // Añado nuevo objeto al hashmap
+            }
+            System.out.println(hm_entities);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return  hm_entities; // Devuelvo hashmap con los resultados
     }
 
     @Override
-    public void showAll(String str_file)throws FileNotFoundException, IOException {
+    public void showAll()throws FileNotFoundException, IOException {
         try (PreparedStatement stmt = conexion.prepareStatement("SELECT * FROM personas")) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -113,6 +127,18 @@ public class BbddModel implements DataManager {
                         "\n" + "first_characteristic: " + rs.getString("CaracteristicaUno") + "\n" + "second_characteristic: " + rs.getString("CaracteristicaDos")
                         + "\n"  + "third_characteristic: " + rs.getString("CaracteristicaTres"));
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteOne(int id) {
+        try {
+            PreparedStatement stmt = conexion.prepareStatement("DELETE FROM personas WHERE id = ? ");
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

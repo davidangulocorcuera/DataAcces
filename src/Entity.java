@@ -1,20 +1,20 @@
-import java.util.HashMap;
-
 public class
 Entity {
     private String str_mid;
     private String str_mname;
     private String str_mfirst_characteristic;
     private String str_msecond_characteristic;
-    private String Str_mthird_characteristic;
+    private String str_mthird_characteristic;
 
+    public Entity() {}// creamos otro constructor para instanciar el objeto sin necesidad
+    // de pasarle los parametros
 
     public Entity(String str_mid, String str_mname, String str_mfirst_characteristic, String str_msecond_characteristic, String str_mthird_characteristic) {
         this.str_mid = str_mid;
         this.str_mname = str_mname;
         this.str_mfirst_characteristic = str_mfirst_characteristic;
         this.str_msecond_characteristic = str_msecond_characteristic;
-        this.Str_mthird_characteristic = str_mthird_characteristic;
+        this.str_mthird_characteristic = str_mthird_characteristic;
     }
 
 
@@ -30,16 +30,16 @@ Entity {
         return str_msecond_characteristic;
     }
 
-    public void setSecondCharacteristic(String str_second_characteristic) {
+    public void setSecondCharacteristic(String str_msecond_characteristic) {
         this.str_msecond_characteristic = str_msecond_characteristic;
     }
 
     public String getThirdCharacteristic() {
-        return Str_mthird_characteristic;
+        return str_mthird_characteristic;
     }
 
-    public void setThirdCharacteristic(String str_third_characteristic) {
-        this.Str_mthird_characteristic = Str_mthird_characteristic;
+    public void setThirdCharacteristic(String str_mthird_characteristic) {
+        this.str_mthird_characteristic = str_mthird_characteristic;
     }
 
     public String getName() {
@@ -56,6 +56,14 @@ Entity {
 
     public void setId(String str_mid) {
         this.str_mid = str_mid;
+    }
+
+
+    public String toString(){
+        String candidate = str_mid + "\n" + str_mname + "\n" + str_mfirst_characteristic + "\n" + str_msecond_characteristic + "\n" + str_mthird_characteristic;
+
+
+        return candidate;
     }
 }
 
