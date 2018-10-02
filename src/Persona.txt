@@ -1,18 +1,42 @@
+id: 26
+name: holadddd
+first_characteristic: hola
+second_characteristic: hola
+third_characteristic: hola
+*
+id: 3
+name: sc
+first_characteristic: sdc
+second_characteristic: sdc
+third_characteristic: sd
+*
+id: 36
+name: holadddd
+first_characteristic: hola
+second_characteristic: hola
+third_characteristic: hola
+*
 id: 12
-name: ww
-first_characteristic: ae
-second_characteristic: awe
-third_characteristic: awe
+name: cscd
+first_characteristic: sdcds
+second_characteristic: sdcs
+third_characteristic: sdc
 *
-id: 13
-name: hgdhg
-first_characteristic: fdv
-second_characteristic: ferv
-third_characteristic: er
+id: 23
+name: hola
+first_characteristic: hola
+second_characteristic: hola
+third_characteristic: hola
 *
-id: 13
-name: hgdhg
-first_characteristic: fdv
-second_characteristic: ferv
-third_characteristic: er
+id: 34
+name: hola
+first_characteristic: hola
+second_characteristic: hola
+third_characteristic: hola
+*
+id: 56
+name: david
+first_characteristic: hola
+second_characteristic: hola
+third_characteristic: hola
 *

@@ -17,7 +17,7 @@ public class BbddModel implements DataManager {
             conexion = DriverManager.getConnection(hm_config.get("url") + (hm_config.get("dbName"))
                     , (hm_config.get("userName")), (hm_config.get("password")));
             if (!conexion.isClosed())
-                System.out.println("Conexion con la bbdd establecida");
+                System.out.println("conected into bbdd");
         } catch (Exception e) {
             System.out.println("Exception: " + e.getMessage());
         }
@@ -111,7 +111,6 @@ public class BbddModel implements DataManager {
                                     ); // Extraes parametros e instancias objeto (Entity)
                 hm_entities.put(rs.getInt("ID")+ " ", entitie); // Añado nuevo objeto al hashmap
             }
-            System.out.println(hm_entities);
         } catch (SQLException e) {
             e.printStackTrace();
         }

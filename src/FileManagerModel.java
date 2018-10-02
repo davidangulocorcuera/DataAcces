@@ -9,9 +9,11 @@ public class FileManagerModel implements DataManager {
     }
 
     private String str_file;
-    public FileManagerModel(String str_file){
+
+    public FileManagerModel(String str_file) {
         this.str_file = str_file;
     }
+
     @Override
     public void addEntity(Entity entity) throws FileNotFoundException, IOException {
         try {
@@ -22,17 +24,14 @@ public class FileManagerModel implements DataManager {
             fw.write("first_characteristic: " + entity.getFirstCharacteristic() + "\n");
             fw.write("second_characteristic: " + entity.getSecondCharacteristic() + "\n");
             fw.write("third_characteristic: " + entity.getThirdCharacteristic() + "\n"
-            + "*" + "\n");
+                    + "*" + "\n");
 
             bw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    // con esta funcion comprobamos que el texto actual contiene un id para añadirselo a la entidad
-    public boolean testId(String str_text){
-        return str_text.charAt(0) == 'i' && str_text.charAt(1) == 'd' && str_text.charAt(2) == ':';
-    }
+
 
     @Override
     public HashMap<String, Entity> saveEntities(HashMap<String, Entity> hm_entities) throws FileNotFoundException, IOException {
@@ -74,9 +73,8 @@ public class FileManagerModel implements DataManager {
             }
         }
         //hm_entities.put(entity.getId(), entity);
-        hm_entities.forEach((k,v) -> System.out.println("Key: " + k + ": Value: " + v));
+        hm_entities.forEach((k, v) -> System.out.println("Key: " + k + ": Value: " + v));
         // Devuelvo hashmap con los resultados
-
 
 
         return hm_entities;
@@ -95,16 +93,25 @@ public class FileManagerModel implements DataManager {
 
     @Override
     public void deleteOne(int id) {
+
+
         HashMap<String, Entity> hm_entities = new HashMap<String, Entity>();
         try {
             hm_entities = saveEntities(hm_entities);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        FileWriter fl = null;
+        try {
+            fl = new FileWriter(getStr_file());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        BufferedWriter bw = new BufferedWriter(fl);
         String str_id = id + "";
-        System.out.println(hm_entities.size());
+
         hm_entities.remove(str_id);
-        System.out.println(hm_entities.size());
+
         for (Map.Entry<String, Entity> entry : hm_entities.entrySet()) {
             String k = entry.getKey();
             Entity v = entry.getValue();
@@ -114,7 +121,7 @@ public class FileManagerModel implements DataManager {
                 e.printStackTrace();
             }
         }
-        //("Key: " + k + ": Value: " + v))
+       System.out.println("deleted!");
 
     }
 
