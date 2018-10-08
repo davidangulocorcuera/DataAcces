@@ -15,15 +15,15 @@ public class FileManagerModel implements DataManager {
     }
 
     @Override
-    public void addEntity(Entity entity) throws FileNotFoundException, IOException {
+    public void addEntity(ProfileManager profile) throws FileNotFoundException, IOException {
         try {
             FileWriter fw = new FileWriter(getStr_file(), true);
             BufferedWriter bw = new BufferedWriter(fw);
-            fw.write("id: " + entity.getId() + "\n");
-            fw.write("name: " + entity.getName() + "\n");
-            fw.write("first_characteristic: " + entity.getFirstCharacteristic() + "\n");
-            fw.write("second_characteristic: " + entity.getSecondCharacteristic() + "\n");
-            fw.write("third_characteristic: " + entity.getThirdCharacteristic() + "\n"
+            fw.write("id: " + profile.getId() + "\n");
+            fw.write("name: " + profile.getName() + "\n");
+            fw.write("first_characteristic: " + profile.getFirstCharacteristic() + "\n");
+            fw.write("second_characteristic: " + profile.getSecondCharacteristic() + "\n");
+            fw.write("third_characteristic: " + profile.getThirdCharacteristic() + "\n"
                     + "*" + "\n");
 
             bw.close();
@@ -34,7 +34,7 @@ public class FileManagerModel implements DataManager {
 
 
     @Override
-    public HashMap<String, Entity> saveEntities(HashMap<String, Entity> hm_entities) throws FileNotFoundException, IOException {
+    public HashMap<String, ProfileManager> saveEntities(HashMap<String, ProfileManager> hm_entities) throws FileNotFoundException, IOException {
         String line;
         FileReader f = new FileReader(getStr_file());
         BufferedReader b = new BufferedReader(f);
@@ -95,7 +95,7 @@ public class FileManagerModel implements DataManager {
     public void deleteOne(int id) {
 
 
-        HashMap<String, Entity> hm_entities = new HashMap<String, Entity>();
+        HashMap<String, ProfileManager> hm_entities = new HashMap<String, ProfileManager>();
         try {
             hm_entities = saveEntities(hm_entities);
         } catch (IOException e) {
@@ -112,9 +112,9 @@ public class FileManagerModel implements DataManager {
 
         hm_entities.remove(str_id);
 
-        for (Map.Entry<String, Entity> entry : hm_entities.entrySet()) {
+        for (Map.Entry<String, ProfileManager> entry : hm_entities.entrySet()) {
             String k = entry.getKey();
-            Entity v = entry.getValue();
+            ProfileManager v = entry.getValue();
             try {
                 addEntity(v);
             } catch (IOException e) {

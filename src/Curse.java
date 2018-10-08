@@ -1,15 +1,14 @@
-public class
-Entity implements ProfileManager{
+public class Curse implements ProfileManager {
     private String str_mid;
     private String str_mname;
     private String str_mfirst_characteristic;
     private String str_msecond_characteristic;
     private String str_mthird_characteristic;
 
-    public Entity() {}// creamos otro constructor para instanciar el objeto sin necesidad
+    public Curse() {}// creamos otro constructor para instanciar el objeto sin necesidad
     // de pasarle los parametros
 
-    public Entity(String str_mid, String str_mname, String str_mfirst_characteristic, String str_msecond_characteristic, String str_mthird_characteristic) {
+    public Curse(String str_mid, String str_mname, String str_mfirst_characteristic, String str_msecond_characteristic, String str_mthird_characteristic) {
         this.str_mid = str_mid;
         this.str_mname = str_mname;
         this.str_mfirst_characteristic = str_mfirst_characteristic;
@@ -60,11 +59,9 @@ Entity implements ProfileManager{
 
 
     public String toString(){
-        String candidate = str_mid + "\n" + str_mname + "\n" + str_mfirst_characteristic + "\n" + str_msecond_characteristic + "\n" + str_mthird_characteristic;
+        String curse = str_mid + "\n" + str_mname + "\n" + str_mfirst_characteristic + "\n" + str_msecond_characteristic + "\n" + str_mthird_characteristic;
 
 
-        return candidate;
+        return curse;
     }
 }
-
-

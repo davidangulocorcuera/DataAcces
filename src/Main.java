@@ -8,7 +8,7 @@ public class Main extends Controller {
         Controller controller = new Controller();
         Entity entitie;
         Scanner sc = new Scanner(System.in);
-        HashMap<String, Entity> hm_entities = new HashMap<String, Entity>();
+        HashMap<String, ProfileManager> hm_entities = new HashMap<String, ProfileManager>();
         String str_id;
         String str_name;
         String str_first_characteristic;
@@ -36,6 +36,22 @@ public class Main extends Controller {
 
             }
             System.out.println("write the number: ");
+            System.out.println("1 to acces like Entity");
+            System.out.println("2 to acces like Profile");
+            int_option1 = sc.nextInt();
+            switch (int_option1) {
+
+                case 1:
+                    controller.profile = new Entity();
+                    break;
+                case 2:
+                    controller.profile = new Curse();
+                    break;
+
+                default:
+
+            }
+            System.out.println("write the number: ");
             System.out.println("1 to add one person");
             System.out.println("2 to show all people ");
             System.out.println("3 to delete one person");
@@ -54,10 +70,16 @@ public class Main extends Controller {
                     str_second_characteristic = sc.next();
                     System.out.println("Add the third characteristic");
                     str_third_characteristic = sc.next();
-                    entitie = new Entity(str_id, str_name, str_first_characteristic, str_second_characteristic, str_third_characteristic);
-                    hm_entities.put(entitie.getId(), entitie);
+
+
+                    controller.profile.setId(str_id);
+                    controller.profile.setName(str_name);
+                    controller.profile.setFirstCharacteristic(str_first_characteristic);
+                    controller.profile.setSecondCharacteristic(str_second_characteristic);
+                    controller.profile.setThirdCharacteristic(str_third_characteristic);
+                    hm_entities.put(controller.profile.getId(), controller.profile);
                     try {
-                        controller.getAcces().addEntity(entitie);
+                        controller.getAcces().addEntity(controller.profile);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -89,9 +111,9 @@ public class Main extends Controller {
                         controller.acces = new FileManagerModel("src/Persona.txt");
 
                     }
-                    for (Map.Entry<String, Entity> entry : hm_entities.entrySet()) {
+                    for (Map.Entry<String, ProfileManager> entry : hm_entities.entrySet()) {
                         String k = entry.getKey();
-                        Entity v = entry.getValue();
+                        ProfileManager v = entry.getValue();
                         try {
                             controller.getAcces().addEntity(hm_entities.get(k));
                         } catch (IOException e) {
