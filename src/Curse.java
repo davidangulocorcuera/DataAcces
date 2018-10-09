@@ -1,15 +1,16 @@
-public class Curse implements ProfileManager {
-    private String str_mid;
+public class Curse {
+    private int int_id;
     private String str_mname;
     private String str_mfirst_characteristic;
     private String str_msecond_characteristic;
     private String str_mthird_characteristic;
 
+
     public Curse() {}// creamos otro constructor para instanciar el objeto sin necesidad
     // de pasarle los parametros
 
-    public Curse(String str_mid, String str_mname, String str_mfirst_characteristic, String str_msecond_characteristic, String str_mthird_characteristic) {
-        this.str_mid = str_mid;
+    public Curse(int int_id, String str_mname, String str_mfirst_characteristic, String str_msecond_characteristic, String str_mthird_characteristic) {
+        this.int_id = int_id;
         this.str_mname = str_mname;
         this.str_mfirst_characteristic = str_mfirst_characteristic;
         this.str_msecond_characteristic = str_msecond_characteristic;
@@ -49,17 +50,17 @@ public class Curse implements ProfileManager {
         this.str_mname = str_mname;
     }
 
-    public String getId() {
-        return str_mid;
+    public int getId() {
+        return int_id;
     }
 
     public void setId(String str_mid) {
-        this.str_mid = str_mid;
+        this.int_id = int_id;
     }
 
 
     public String toString(){
-        String curse = str_mid + "\n" + str_mname + "\n" + str_mfirst_characteristic + "\n" + str_msecond_characteristic + "\n" + str_mthird_characteristic;
+        String curse = int_id + "\n" + str_mname + "\n" + str_mfirst_characteristic + "\n" + str_msecond_characteristic + "\n" + str_mthird_characteristic;
 
 
         return curse;

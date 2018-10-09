@@ -7,7 +7,7 @@ import java.util.Properties;
 
 public class BbddModel implements DataManager {
     private Connection conexion = null;
-
+    HashMap<Integer, Curse> hm_curses = new HashMap<Integer, Curse>();
     // Para hacer la conexion con la bbdd ya no es necesario acceder al fichero ini porque esta todo en el hashmap
     public BbddModel() {
 
@@ -48,9 +48,8 @@ public class BbddModel implements DataManager {
     }
 
 
-
     @Override
-    public void addEntity( Entity entitie) throws FileNotFoundException, IOException  {
+    public void addEntity(Entity entitie) throws FileNotFoundException, IOException {
         // comprobamos que el id no este ya en la base de datos, en ese caso no realizaremos el insert
         boolean bl_ok = true;
         try (PreparedStatement stmt = conexion.prepareStatement("SELECT * FROM personas")) {
@@ -81,7 +80,10 @@ public class BbddModel implements DataManager {
                     stmt.setString(3, entitie.getFirstCharacteristic());
                     stmt.setString(4, entitie.getSecondCharacteristic());
                     stmt.setString(5, entitie.getThirdCharacteristic());
-                    stmt.setInt(6, entitie.getInt_midCurso());
+                    stmt.setInt(6, entitie.getCurse().getId()) ;
+
+                    System.out.println(stmt.toString());
+
                     stmt.executeUpdate();
                     System.out.println("insert do it!");
                 } catch (NumberFormatException excepcion) {
@@ -98,35 +100,73 @@ public class BbddModel implements DataManager {
         }
     }
 
-    @Override
-    public HashMap<String, Entity> saveEntities (HashMap<String, Entity> hm_entities) {
-        try (PreparedStatement stmt = conexion.prepareStatement("SELECT * FROM personas")) { // Extrae listado de personas
-            ResultSet rs = stmt.executeQuery(); // Almacena resultados
-            while (rs.next()) { // Itera resultados
-                Entity entitie = new Entity(
-                        rs.getInt("ID")+ "",
-                        rs.getString("Nombre"),
-                        rs.getString("CaracteristicaUno"),
-                        rs.getString("CaracteristicaDos"),
-                        rs.getString("CaracteristicaTres"),
-                        rs.getInt("ID_curso")
-                ); // Extraes parametros e instancias objeto (Entity)
-                hm_entities.put(rs.getInt("ID")+ " ", entitie); // Añado nuevo objeto al hashmap
+    public Curse searchCurse(int id_curse) {
+        Curse curse = new Curse();
+        try (PreparedStatement stmt = conexion.prepareStatement("SELECT * FROM curso WHERE ID = " + id_curse)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                curse = new Curse(rs.getInt("ID"), rs.getString("Nombre"), rs.getString("CaracteristicaUno")
+                        , rs.getString("CaracteristicaDos"),
+                        rs.getString("CaracteristicaTres"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return  hm_entities; // Devuelvo hashmap con los resultados
+        return curse;
+    }
+
+
+    @Override
+    public HashMap<String, Entity> saveEntities(HashMap<String, Entity> hm_entities) {
+        Curse curse = new Curse();
+        try (PreparedStatement stmt = conexion.prepareStatement("SELECT * FROM personas")) { // Extrae listado de personas
+            ResultSet rs = stmt.executeQuery(); // Almacena resultados
+            while (rs.next()) { // Itera resultados
+                Entity entitie = new Entity(
+                        rs.getInt("ID") + "",
+                        rs.getString("Nombre"),
+                        rs.getString("CaracteristicaUno"),
+                        rs.getString("CaracteristicaDos"),
+                        rs.getString("CaracteristicaTres"),
+                        searchCurse(rs.getInt("ID_curso"))
+                ); // Extraes parametros e instancias objeto (Entity)
+                hm_entities.put(rs.getInt("ID") + " ", entitie); // Añado nuevo objeto al hashmap
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return hm_entities; // Devuelvo hashmap con los resultados
+    }
+
+    public HashMap<Integer, Curse>  saveCurses() {
+        HashMap<Integer, Curse> hm_curses =new HashMap<Integer,Curse>();
+        Curse curse = new Curse();
+        try (PreparedStatement stmt = conexion.prepareStatement("SELECT * FROM curso")) { // Extrae listado de cursos
+            ResultSet rs = stmt.executeQuery(); // Almacena resultados
+            while (rs.next()) { // Itera resultados
+                curse = new Curse(
+                        rs.getInt("ID"),
+                        rs.getString("Nombre"),
+                        rs.getString("CaracteristicaUno"),
+                        rs.getString("CaracteristicaDos"),
+                        rs.getString("CaracteristicaTres")
+                ); // Extraes parametros e instancias objeto (Entity)
+                hm_curses.put(rs.getInt("ID"), curse); // Añado nuevo objeto al hashmap
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return hm_curses; // Devuelvo hashmap con los resultados
     }
 
     @Override
-    public void showAll()throws FileNotFoundException, IOException {
+    public void showAll() throws FileNotFoundException, IOException {
         try (PreparedStatement stmt = conexion.prepareStatement("SELECT * FROM personas")) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                System.out.println("id: " + rs.getInt("ID") + "\n" + "name: " +  rs.getString("Nombre") +
+                System.out.println("id: " + rs.getInt("ID") + "\n" + "name: " + rs.getString("Nombre") +
                         "\n" + "first_characteristic: " + rs.getString("CaracteristicaUno") + "\n" + "second_characteristic: " + rs.getString("CaracteristicaDos")
-                        + "\n"  + "third_characteristic: " + rs.getString("CaracteristicaTres"));
+                        + "\n" + "third_characteristic: " + rs.getString("CaracteristicaDos") + "\n" + "curse: " + rs.getInt("ID_curso"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

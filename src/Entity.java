@@ -1,25 +1,24 @@
 public class
-Entity implements ProfileManager{
+Entity {
     private String str_mid;
     private String str_mname;
     private String str_mfirst_characteristic;
     private String str_msecond_characteristic;
     private String str_mthird_characteristic;
-    private int int_midCurso;
+    private Curse curse;
 
 
-
-
-    public Entity() {}// creamos otro constructor para instanciar el objeto sin necesidad
+    public Entity() {
+    }// creamos otro constructor para instanciar el objeto sin necesidad
     // de pasarle los parametros
 
-    public Entity(String str_mid, String str_mname, String str_mfirst_characteristic, String str_msecond_characteristic, String str_mthird_characteristic,int int_midCurso) {
+    public Entity(String str_mid, String str_mname, String str_mfirst_characteristic, String str_msecond_characteristic, String str_mthird_characteristic, Curse curse) {
         this.str_mid = str_mid;
         this.str_mname = str_mname;
         this.str_mfirst_characteristic = str_mfirst_characteristic;
         this.str_msecond_characteristic = str_msecond_characteristic;
         this.str_mthird_characteristic = str_mthird_characteristic;
-        this.int_midCurso = int_midCurso;
+        this.curse = curse;
     }
 
 
@@ -63,14 +62,16 @@ Entity implements ProfileManager{
         this.str_mid = str_mid;
     }
 
-    public int getInt_midCurso() {
-        return int_midCurso;
+
+    public Curse getCurse() {
+        return curse;
     }
 
-    public void setInt_midCurso(int int_midCurso) {
-        this.int_midCurso = int_midCurso;
+    public void setCurse(Curse curse) {
+        this.curse = curse;
     }
-    public String toString(){
+
+    public String toString() {
         String candidate = str_mid + "\n" + str_mname + "\n" + str_mfirst_characteristic + "\n" + str_msecond_characteristic + "\n" + str_mthird_characteristic;
 
 

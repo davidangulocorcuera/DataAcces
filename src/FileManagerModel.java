@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -89,6 +88,14 @@ public class FileManagerModel implements DataManager {
             System.out.println(str_text);
         }
         b.close();
+    }
+    public HashMap<Integer, Curse>  saveCurses(){
+return null;
+    }
+
+    @Override
+    public Curse searchCurse(int id_curs) {
+        return null;
     }
 
     @Override

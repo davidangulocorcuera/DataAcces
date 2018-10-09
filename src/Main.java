@@ -6,16 +6,24 @@ import java.util.Scanner;
 public class Main extends Controller {
     public static void main(String[] args) {
         Controller controller = new Controller();
-        Entity entitie;
+        Entity entity;
+        Curse curse = new Curse();
         Scanner sc = new Scanner(System.in);
         HashMap<String, Entity> hm_entities = new HashMap<String, Entity>();
+        HashMap<Integer, Curse> hm_curses = new HashMap<Integer, Curse>();
+
         String str_id;
         String str_name;
         String str_first_characteristic;
         String str_second_characteristic;
         String str_third_characteristic;
-         int id_curse;
+
+        int id_curse;
         int int_close = 1;
+
+
+
+
 
         while (int_close != 0) {
             System.out.println("write the number: ");
@@ -35,6 +43,7 @@ public class Main extends Controller {
                 default:
 
             }
+
             System.out.println("write the number: ");
             System.out.println("1 to add one person");
             System.out.println("2 to show all people ");
@@ -44,6 +53,12 @@ public class Main extends Controller {
             int int_option = sc.nextInt();
             switch (int_option) {
                 case 1:
+                    try {
+                        hm_entities = controller.getAcces().saveEntities(hm_entities);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
                     System.out.println("Add the ID");
                     str_id = sc.next();
                     System.out.println("Add the name");
@@ -56,12 +71,21 @@ public class Main extends Controller {
                     str_third_characteristic = sc.next();
                     System.out.println("Add the id curse");
                     id_curse = sc.nextInt();
-                    entitie = new Entity(str_id, str_name, str_first_characteristic, str_second_characteristic, str_third_characteristic,id_curse);
-                    hm_entities.put(entitie.getId(), entitie);
+                    controller.getAcces().searchCurse(id_curse);
+                    hm_curses = controller.saveCurses();
+                    curse = hm_curses.get(id_curse);
+
+                    if(curse == null){
+                        System.out.println("ese id no existe");
+                    }
+                    else{
+                    entity = new Entity(str_id, str_name, str_first_characteristic, str_second_characteristic, str_third_characteristic,curse);
+                    hm_entities.put(entity.getId(), entity);
                     try {
-                        controller.getAcces().addEntity(entitie);
+                        controller.getAcces().addEntity(entity);
                     } catch (IOException e) {
                         e.printStackTrace();
+                    }
                     }
                     break;
                 case 2:
@@ -80,11 +104,7 @@ public class Main extends Controller {
                     break;
                 case 4:
 
-                    try {
-                        hm_entities = controller.getAcces().saveEntities(hm_entities);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+
                     if (int_option1 == 2) {
                         controller.acces = new BbddModel();
                     } else {

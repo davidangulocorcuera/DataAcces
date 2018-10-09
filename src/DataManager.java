@@ -1,6 +1,5 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface DataManager {
@@ -8,4 +7,6 @@ public interface DataManager {
     public HashMap<String, Entity> saveEntities (HashMap<String, Entity> hm_entities)throws FileNotFoundException, IOException;
     public void showAll() throws FileNotFoundException, IOException;
     public void deleteOne(int id);
+    public HashMap<Integer, Curse> saveCurses();
+    public Curse searchCurse(int id_curse);
 }
