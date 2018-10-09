@@ -2,24 +2,16 @@ import javax.naming.ldap.Control;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class Controller {
+public class Controller extends BbddModel {
     DataManager acces;
-
-
-    ProfileManager profile;
-
-    public ProfileManager getProfile() {
-        return profile;
-    }
 
 
     public DataManager getAcces() {
         return acces;
     }
 
-    public void DataManager(DataManager acces, ProfileManager profile) {
+    public void DataManager(DataManager acces) {
         this.acces = acces;
-        this.profile = profile;
     }
 
 

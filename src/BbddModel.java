@@ -50,13 +50,13 @@ public class BbddModel implements DataManager {
 
 
     @Override
-    public void addEntity( ProfileManager profile) throws FileNotFoundException, IOException  {
+    public void addEntity( Entity entitie) throws FileNotFoundException, IOException  {
         // comprobamos que el id no este ya en la base de datos, en ese caso no realizaremos el insert
         boolean bl_ok = true;
         try (PreparedStatement stmt = conexion.prepareStatement("SELECT * FROM personas")) {
             ResultSet rs = stmt.executeQuery();
             try {
-                int id = Integer.parseInt(profile.getId());
+                int id = Integer.parseInt(entitie.getId());
                 while (rs.next()) {
                     if (rs.getInt("ID") == id) {
                         bl_ok = false;
@@ -73,14 +73,15 @@ public class BbddModel implements DataManager {
 
 
         if (bl_ok) {
-            try (PreparedStatement stmt = conexion.prepareStatement("INSERT INTO personas(ID,Nombre,CaracteristicaUno,CaracteristicaDos,CaracteristicaTres) VALUES (?,?,?,?,?)")) {
+            try (PreparedStatement stmt = conexion.prepareStatement("INSERT INTO personas(ID,Nombre,CaracteristicaUno,CaracteristicaDos,CaracteristicaTres,ID_curso) VALUES (?,?,?,?,?,?)")) {
                 try {
-                    int id = Integer.parseInt(profile.getId());
+                    int id = Integer.parseInt(entitie.getId());
                     stmt.setInt(1, id);
-                    stmt.setString(2, profile.getName());
-                    stmt.setString(3, profile.getFirstCharacteristic());
-                    stmt.setString(4, profile.getSecondCharacteristic());
-                    stmt.setString(5, profile.getThirdCharacteristic());
+                    stmt.setString(2, entitie.getName());
+                    stmt.setString(3, entitie.getFirstCharacteristic());
+                    stmt.setString(4, entitie.getSecondCharacteristic());
+                    stmt.setString(5, entitie.getThirdCharacteristic());
+                    stmt.setInt(6, entitie.getInt_midCurso());
                     stmt.executeUpdate();
                     System.out.println("insert do it!");
                 } catch (NumberFormatException excepcion) {
@@ -98,17 +99,18 @@ public class BbddModel implements DataManager {
     }
 
     @Override
-    public HashMap<String, ProfileManager> saveEntities (HashMap<String, ProfileManager> hm_entities) {
+    public HashMap<String, Entity> saveEntities (HashMap<String, Entity> hm_entities) {
         try (PreparedStatement stmt = conexion.prepareStatement("SELECT * FROM personas")) { // Extrae listado de personas
             ResultSet rs = stmt.executeQuery(); // Almacena resultados
             while (rs.next()) { // Itera resultados
                 Entity entitie = new Entity(
-                                            rs.getInt("ID")+ "",
-                                            rs.getString("Nombre"),
-                                            rs.getString("CaracteristicaUno"),
-                                            rs.getString("CaracteristicaDos"),
-                                            rs.getString("CaracteristicaTres")
-                                    ); // Extraes parametros e instancias objeto (Entity)
+                        rs.getInt("ID")+ "",
+                        rs.getString("Nombre"),
+                        rs.getString("CaracteristicaUno"),
+                        rs.getString("CaracteristicaDos"),
+                        rs.getString("CaracteristicaTres"),
+                        rs.getInt("ID_curso")
+                ); // Extraes parametros e instancias objeto (Entity)
                 hm_entities.put(rs.getInt("ID")+ " ", entitie); // Añado nuevo objeto al hashmap
             }
         } catch (SQLException e) {
