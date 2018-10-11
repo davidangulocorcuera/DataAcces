@@ -1,0 +1,6 @@
+id: 12112
+name: sadad
+first_characteristic: sdad
+second_characteristic: sadsad
+third_characteristic: sadad
+*
