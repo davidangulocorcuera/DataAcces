@@ -93,10 +93,7 @@ public class FileManagerModel implements DataManager {
 return null;
     }
 
-    @Override
-    public Curse searchCurse(int id_curs) {
-        return null;
-    }
+
 
     @Override
     public void deleteOne(int id) {

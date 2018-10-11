@@ -47,7 +47,7 @@ public class BbddModel implements DataManager {
 
     }
 
-
+ // método para añadir una entidad a la bbdd.
     @Override
     public void addEntity(Entity entitie) throws FileNotFoundException, IOException {
         // comprobamos que el id no este ya en la base de datos, en ese caso no realizaremos el insert
@@ -99,7 +99,56 @@ public class BbddModel implements DataManager {
             System.out.println("the id is already exists ");
         }
     }
+    public void addCurse(Curse curse) throws FileNotFoundException, IOException {
+        // comprobamos que el id no este ya en la base de datos, en ese caso no realizaremos el insert
+        boolean bl_ok = true;
+        try (PreparedStatement stmt = conexion.prepareStatement("SELECT * FROM curso")) {
+            ResultSet rs = stmt.executeQuery();
+            try {
+                int id = curse.getId();
+                while (rs.next()) {
+                    if (rs.getInt("ID") == id) {
+                        bl_ok = false;
+                    }
 
+                }
+            } catch (NumberFormatException excepcion) {
+                System.out.println("the id have to be a number");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        if (bl_ok) {
+            try (PreparedStatement stmt = conexion.prepareStatement("INSERT INTO curso(ID,Nombre,CaracteristicaUno,CaracteristicaDos,CaracteristicaTres) VALUES (?,?,?,?,?)")) {
+                try {
+                    stmt.setInt(1, curse.getId());
+                    stmt.setString(2, curse.getName());
+                    stmt.setString(3, curse.getFirstCharacteristic());
+                    stmt.setString(4, curse.getSecondCharacteristic());
+                    stmt.setString(5, curse.getThirdCharacteristic());
+
+
+                    System.out.println(stmt.toString());
+
+                    stmt.executeUpdate();
+                    System.out.println("insert do it!");
+                } catch (NumberFormatException excepcion) {
+                }
+
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
+        } else {
+            System.out.println("the id is already exists ");
+        }
+    }
+    //con esta funcion nos devuelve el curso entero mandandole el id.
     public Curse searchCurse(int id_curse) {
         Curse curse = new Curse();
         try (PreparedStatement stmt = conexion.prepareStatement("SELECT * FROM curso WHERE ID = " + id_curse)) {
@@ -158,6 +207,19 @@ public class BbddModel implements DataManager {
         }
         return hm_curses; // Devuelvo hashmap con los resultados
     }
+    public void showAllCurses() throws FileNotFoundException, IOException {
+        try (PreparedStatement stmt = conexion.prepareStatement("SELECT * FROM curso")) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                System.out.println("id: " + rs.getInt("ID") + "\n" + "name: " + rs.getString("Nombre") +
+                        "\n" + "first_characteristic: " + rs.getString("CaracteristicaUno") + "\n" + "second_characteristic: " + rs.getString("CaracteristicaDos")
+                        + "\n" + "third_characteristic: " + rs.getString("CaracteristicaDos"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public void showAll() throws FileNotFoundException, IOException {

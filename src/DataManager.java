@@ -8,5 +8,5 @@ public interface DataManager {
     public void showAll() throws FileNotFoundException, IOException;
     public void deleteOne(int id);
     public HashMap<Integer, Curse> saveCurses();
-    public Curse searchCurse(int id_curse);
+
 }

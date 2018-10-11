@@ -22,9 +22,6 @@ public class Main extends Controller {
         int int_close = 1;
 
 
-
-
-
         while (int_close != 0) {
             System.out.println("write the number: ");
             System.out.println("1 to acces into the bbdd");
@@ -46,10 +43,12 @@ public class Main extends Controller {
 
             System.out.println("write the number: ");
             System.out.println("1 to add one person");
-            System.out.println("2 to show all people ");
-            System.out.println("3 to delete one person");
-            System.out.println("4 to save all data (if you have been choosen acces to txt file all data will be save into the bbdd else it will be save into the txt file.)");
-            System.out.println("5 to exit");
+            System.out.println("2 to add one curse");
+            System.out.println("3 to show all people ");
+            System.out.println("4 to show all curses ");
+            System.out.println("5 to delete one person");
+            System.out.println("6 to save all data (if you have been choosen acces to txt file all data will be save into the bbdd else it will be save into the txt file.)");
+            System.out.println("7 to exit");
             int int_option = sc.nextInt();
             switch (int_option) {
                 case 1:
@@ -71,24 +70,53 @@ public class Main extends Controller {
                     str_third_characteristic = sc.next();
                     System.out.println("Add the id curse");
                     id_curse = sc.nextInt();
-                    controller.getAcces().searchCurse(id_curse);
+                    //controller.getAcces().searchCurse(id_curse);
                     hm_curses = controller.saveCurses();
                     curse = hm_curses.get(id_curse);
 
-                    if(curse == null){
+                    if (curse == null) {
                         System.out.println("ese id no existe");
-                    }
-                    else{
-                    entity = new Entity(str_id, str_name, str_first_characteristic, str_second_characteristic, str_third_characteristic,curse);
-                    hm_entities.put(entity.getId(), entity);
-                    try {
-                        controller.getAcces().addEntity(entity);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    } else {
+                        entity = new Entity(str_id, str_name, str_first_characteristic, str_second_characteristic, str_third_characteristic, curse);
+                        hm_entities.put(entity.getId(), entity);
+                        try {
+                            controller.getAcces().addEntity(entity);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                     break;
                 case 2:
+                    try {
+                        hm_entities = controller.getAcces().saveEntities(hm_entities);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    System.out.println("Add the ID");
+                    int id = sc.nextInt();
+                    System.out.println("Add the name");
+                    str_name = sc.next();
+                    System.out.println("Add the first characteristic");
+                    str_first_characteristic = sc.next();
+                    System.out.println("Add the second characteristic");
+                    str_second_characteristic = sc.next();
+                    System.out.println("Add the third characteristic");
+                    str_third_characteristic = sc.next();
+                    System.out.println("Add the id curse");
+
+
+
+                    curse = new Curse(id, str_name, str_first_characteristic, str_second_characteristic, str_third_characteristic);
+                    hm_curses.put(curse.getId(), curse);
+                    try {
+                        controller.getBbddModel().addCurse(curse);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+            break;
+                case 3:
                     try {
                         controller.getAcces().showAll();
                     } catch (IOException e) {
@@ -96,13 +124,21 @@ public class Main extends Controller {
                     }
 
                     break;
+                case 4:
+                    try {
+                        controller.bbddModel.showAllCurses();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    break;
                 //borrar
-                case 3:
+                case 5:
                     System.out.println("write the id of the person you want to delete");
                     int int_id = sc.nextInt();
                     controller.getAcces().deleteOne(int_id);
                     break;
-                case 4:
+                case 6:
 
 
                     if (int_option1 == 2) {
@@ -124,7 +160,7 @@ public class Main extends Controller {
 
 
                     break;
-                case 5:
+                case 7:
                     int_close = 0;
                 default:
             }
