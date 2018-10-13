@@ -23,7 +23,8 @@ public class FileManagerModel implements DataManager {
             fw.write("name: " + entity.getName() + "\n");
             fw.write("first_characteristic: " + entity.getFirstCharacteristic() + "\n");
             fw.write("second_characteristic: " + entity.getSecondCharacteristic() + "\n");
-            fw.write("third_characteristic: " + entity.getThirdCharacteristic() + "\n"
+            fw.write("third_characteristic: " + entity.getSecondCharacteristic() + "\n");
+            fw.write("id_curse: " + entity.getCurse().getId() + "\n"
                     + "*" + "\n");
 
             bw.close();
