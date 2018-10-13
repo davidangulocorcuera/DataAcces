@@ -59,7 +59,7 @@ public class Main extends Controller {
             switch (int_option) {
                 case 1:
                     try {
-                        hm_entities = controller.getAcces().saveEntities(hm_entities);
+                        hm_entities = controller.getAcces().saveEntities();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -190,7 +190,7 @@ public class Main extends Controller {
                     break;
                 case 10:
                     try {
-                        controller.getFileManagerModel().saveCurses();
+                        controller.getAcces().saveEntities();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

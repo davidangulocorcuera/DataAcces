@@ -4,7 +4,7 @@ first_characteristic: sdad
 second_characteristic: sadsad
 third_characteristic: sadad
 *
-id: 23
+id: 1
 name: damp2
 first_characteristic: wqeq
 second_characteristic: qweqe

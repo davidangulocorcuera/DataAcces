@@ -166,7 +166,8 @@ public class BbddModel implements DataManager {
 
 
     @Override
-    public HashMap<String, Entity> saveEntities(HashMap<String, Entity> hm_entities) {
+    public HashMap<String, Entity> saveEntities() {
+        HashMap<String, Entity> hm_entities = new  HashMap<String, Entity>();
         Curse curse = new Curse();
         try (PreparedStatement stmt = conexion.prepareStatement("SELECT * FROM personas")) { // Extrae listado de personas
             ResultSet rs = stmt.executeQuery(); // Almacena resultados

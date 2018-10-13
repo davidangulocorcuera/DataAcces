@@ -51,7 +51,9 @@ public class FileManagerModel implements DataManager {
 
 
     @Override
-    public HashMap<String, Entity> saveEntities(HashMap<String, Entity> hm_entities) throws FileNotFoundException, IOException {
+    public HashMap<String, Entity> saveEntities() throws FileNotFoundException, IOException {
+        HashMap<String, Entity> hm_entities = new  HashMap<String, Entity>();
+        HashMap<Integer, Curse> hm_curses = new  HashMap<Integer, Curse>();
         String line;
         FileReader f = new FileReader(getStr_file());
         BufferedReader b = new BufferedReader(f);
@@ -81,16 +83,26 @@ public class FileManagerModel implements DataManager {
                         break;
                     case "third_characteristic":
                         entity.setThirdCharacteristic(value);
+
+                        break;
+                    case "id_curse":
+                        hm_curses = saveCurses();
+                        int id_curse = Integer.parseInt(value);
+                        entity.setCurse(hm_curses.get(id_curse));
                         break;
                 }
             } else {
+
                 hm_entities.put(entity.getId(), entity);
+
                 // Añado nuevo objeto al hashmap
                 entity = new Entity();
             }
         }
+        //System.out.println("hola");
         //hm_entities.put(entity.getId(), entity);
-        hm_entities.forEach((k, v) -> System.out.println("Key: " + k + ": Value: " + v));
+        //System.out.println(hm_entities.get(26).getCurse().getId());
+       // hm_entities.forEach((k, v) -> System.out.println("Key: " + k + ": Value: " + v));
         // Devuelvo hashmap con los resultados
 
 
@@ -142,8 +154,8 @@ public class FileManagerModel implements DataManager {
             }
         }
         //hm_entities.put(entity.getId(), entity);
-        hm_curses.forEach((k, v) -> System.out.println("Key: " + k + ": Value: " + v));
-        System.out.println(hm_curses);
+        //hm_curses.forEach((k, v) -> System.out.println("Key: " + k + ": Value: " + v));
+       // System.out.println(hm_curses);
 
         // Devuelvo hashmap con los resultados
 
@@ -180,7 +192,7 @@ public class FileManagerModel implements DataManager {
 
         HashMap<String, Entity> hm_entities = new HashMap<String, Entity>();
         try {
-            hm_entities = saveEntities(hm_entities);
+            hm_entities = saveEntities();
         } catch (IOException e) {
             e.printStackTrace();
         }
