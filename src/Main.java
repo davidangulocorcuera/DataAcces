@@ -188,6 +188,13 @@ public class Main extends Controller {
 
 
                     break;
+                case 10:
+                    try {
+                        controller.getFileManagerModel().saveCurses();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
                 case 9:
                     int_close = 0;
                 default:

@@ -7,6 +7,6 @@ public interface DataManager {
     public HashMap<String, Entity> saveEntities (HashMap<String, Entity> hm_entities)throws FileNotFoundException, IOException;
     public void showAll() throws FileNotFoundException, IOException;
     public void deleteOne(int id);
-    public HashMap<Integer, Curse> saveCurses();
+    public HashMap<Integer, Curse> saveCurses() throws IOException;
 
 }

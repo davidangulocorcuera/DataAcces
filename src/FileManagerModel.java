@@ -96,6 +96,60 @@ public class FileManagerModel implements DataManager {
         return hm_entities;
     }
 
+    public HashMap<Integer, Curse> saveCurses() throws IOException {
+        HashMap<Integer, Curse> hm_curses = new  HashMap<Integer, Curse>();
+        String line;
+        FileReader f = null;
+        try {
+            f = new FileReader("src/Curso.txt");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        BufferedReader b = new BufferedReader(f);
+        // Almacena resultados
+        // Extrae listado de personas
+
+        Curse curse = new Curse();
+        while ((line = b.readLine()) != null) {
+            // Itera resultados
+            if (!line.equals("*")) {
+                String[] data = line.split(":");
+                String key = data[0];
+                String value = data[1].trim(); //Limpia el string de carácteres vacíos en los extremos
+
+                switch (key) {
+                    case "id":
+                       curse.setId(Integer.parseInt(value));
+                        break;
+                    case "name":
+                        curse.setName(value);
+                        break;
+                    case "first_characteristic":
+                        curse.setFirstCharacteristic(value);
+                        break;
+                    case "second_characteristic":
+                        curse.setSecondCharacteristic(value);
+                        break;
+                    case "third_characteristic":
+                        curse.setThirdCharacteristic(value);
+                        break;
+                }
+            } else {
+                hm_curses.put(curse.getId(), curse);
+                // Añado nuevo objeto al hashmap
+                curse = new Curse();
+            }
+        }
+        //hm_entities.put(entity.getId(), entity);
+        hm_curses.forEach((k, v) -> System.out.println("Key: " + k + ": Value: " + v));
+        System.out.println(hm_curses);
+
+        // Devuelvo hashmap con los resultados
+
+
+        return hm_curses;
+    }
+
     @Override
     public void showAll() throws FileNotFoundException, IOException {
         String str_text;
@@ -115,9 +169,7 @@ public class FileManagerModel implements DataManager {
         }
         b.close();
     }
-    public HashMap<Integer, Curse>  saveCurses(){
-        return null;
-    }
+
 
 
 

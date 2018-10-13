@@ -54,7 +54,7 @@ public class Curse {
         return int_id;
     }
 
-    public void setId(String str_mid) {
+    public void setId(int int_id) {
         this.int_id = int_id;
     }
 
