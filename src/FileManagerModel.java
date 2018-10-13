@@ -6,16 +6,14 @@ public class FileManagerModel implements DataManager {
     public String getStr_file() {
         return str_file;
     }
-    Curse curse;
-    private String str_file;
-    public FileManagerModel() {
 
-    }
+    private String str_file;
+
+    public FileManagerModel(){}
     public FileManagerModel(String str_file) {
         this.str_file = str_file;
     }
 
-    // Añadir una entidad al fichero persona //terminar
     @Override
     public void addEntity(Entity entity) throws FileNotFoundException, IOException {
         try {
@@ -25,8 +23,7 @@ public class FileManagerModel implements DataManager {
             fw.write("name: " + entity.getName() + "\n");
             fw.write("first_characteristic: " + entity.getFirstCharacteristic() + "\n");
             fw.write("second_characteristic: " + entity.getSecondCharacteristic() + "\n");
-            fw.write("third_characteristic: " + entity.getSecondCharacteristic() + "\n");
-            fw.write("id_curse: " + entity.getCurse().getId() + "\n"
+            fw.write("third_characteristic: " + entity.getThirdCharacteristic() + "\n"
                     + "*" + "\n");
 
             bw.close();
@@ -34,8 +31,6 @@ public class FileManagerModel implements DataManager {
             e.printStackTrace();
         }
     }
-
-    // Añadir un curso al fichero curso
     public void addCurse(Curse curse) throws FileNotFoundException, IOException {
         try {
             FileWriter fw = new FileWriter("src/Curso.txt", true);
@@ -53,7 +48,7 @@ public class FileManagerModel implements DataManager {
         }
     }
 
-    // obtiene todas las entidades del fichero persona
+
     @Override
     public HashMap<String, Entity> saveEntities(HashMap<String, Entity> hm_entities) throws FileNotFoundException, IOException {
         String line;
@@ -61,7 +56,7 @@ public class FileManagerModel implements DataManager {
         BufferedReader b = new BufferedReader(f);
         // Almacena resultados
         // Extrae listado de personas
-        HashMap <Integer,Curse> hm_curses = new HashMap<Integer,Curse>();
+
         Entity entity = new Entity();
         while ((line = b.readLine()) != null) {
             // Itera resultados
@@ -86,12 +81,6 @@ public class FileManagerModel implements DataManager {
                     case "third_characteristic":
                         entity.setThirdCharacteristic(value);
                         break;
-                    case "id_curse":
-                       int int_value = Integer.parseInt(value);
-                        hm_curses = saveCurses();
-                        entity.setCurse(hm_curses.get(int_value));
-
-                        break;
                 }
             } else {
                 hm_entities.put(entity.getId(), entity);
@@ -100,60 +89,13 @@ public class FileManagerModel implements DataManager {
             }
         }
         //hm_entities.put(entity.getId(), entity);
-        hm_entities.forEach((k, v) -> System.out.println("Key: " + k + ": Value: " + v ));
-
+        hm_entities.forEach((k, v) -> System.out.println("Key: " + k + ": Value: " + v));
         // Devuelvo hashmap con los resultados
 
 
         return hm_entities;
     }
-    //guardamos todos los cursos en un hashmap
-    public HashMap<Integer, Curse> saveCurses(HashMap<Integer, Curse> hm_curses) throws FileNotFoundException, IOException {
-        String line;
-        FileReader f = new FileReader("src/Curso.txt");
-        BufferedReader b = new BufferedReader(f);
-        // Almacena resultados
-        // Extrae listado de personas
 
-       Curse curse = new Curse();
-        while ((line = b.readLine()) != null) {
-            // Itera resultados
-            if (!line.equals("*")) {
-                String[] data = line.split(":");
-                String key = data[0];
-                String value = data[1].trim(); //Limpia el string de carácteres vacíos en los extremos
-
-                switch (key) {
-                    case "id":
-                        curse.setId(value);
-                        break;
-                    case "name":
-                        curse.setName(value);
-                        break;
-                    case "first_characteristic":
-                       curse.setFirstCharacteristic(value);
-                        break;
-                    case "second_characteristic":
-                        curse.setSecondCharacteristic(value);
-                        break;
-                    case "third_characteristic":
-                        curse.setThirdCharacteristic(value);
-                        break;
-                }
-            } else {
-                hm_curses.put(curse.getId(), curse);
-                // Añado nuevo objeto al hashmap
-                curse = new Curse();
-            }
-        }
-        //hm_entities.put(entity.getId(), entity);
-        hm_curses.forEach((k, v) -> System.out.println("Key: " + k + ": Value: " + v));
-        // Devuelvo hashmap con los resultados
-
-
-        return hm_curses;
-    }
-    //  Muestra todas las entidades del fichero persona
     @Override
     public void showAll() throws FileNotFoundException, IOException {
         String str_text;
@@ -174,7 +116,7 @@ public class FileManagerModel implements DataManager {
         b.close();
     }
     public HashMap<Integer, Curse>  saveCurses(){
-return null;
+        return null;
     }
 
 

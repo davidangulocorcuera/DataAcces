@@ -50,8 +50,8 @@ public class Main extends Controller {
             System.out.println("2 to add one curse into BBDD");
             System.out.println("3 to add one curse into the file");
             System.out.println("4 to show all people ");
-            System.out.println("5 to show all curses from BBDD ");
-            System.out.println("6 to show all curses from File ");
+            System.out.println("5 to show all curses from file ");
+            System.out.println("6 to show all curses from BBDD ");
             System.out.println("7 to delete one person");
             System.out.println("8 to save all data (if you have been choosen acces to txt file all data will be save into the bbdd else it will be save into the txt file.)");
             System.out.println("9 to exit");
@@ -105,7 +105,6 @@ public class Main extends Controller {
                     str_second_characteristic = sc.next();
                     System.out.println("Add the third characteristic");
                     str_third_characteristic = sc.next();
-                    System.out.println("Add the id curse");
                     curse = new Curse(id, str_name, str_first_characteristic, str_second_characteristic, str_third_characteristic);
                     hm_curses.put(curse.getId(), curse);
                     try {
@@ -117,7 +116,6 @@ public class Main extends Controller {
                     break;
                 case 3:
 
-                    hm_curses = controller.getBbddModel().saveCurses();
                     System.out.println("Add the ID");
                     id = sc.nextInt();
                     System.out.println("Add the name");
@@ -128,14 +126,14 @@ public class Main extends Controller {
                     str_second_characteristic = sc.next();
                     System.out.println("Add the third characteristic");
                     str_third_characteristic = sc.next();
-                    System.out.println("Add the id curse");
                     curse = new Curse(id, str_name, str_first_characteristic, str_second_characteristic, str_third_characteristic);
-                    hm_curses.put(curse.getId(), curse);
+
                     try {
                         controller.getFileManagerModel().addCurse(curse);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+
 
                     break;
                 case 4:
