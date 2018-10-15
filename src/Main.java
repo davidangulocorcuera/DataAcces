@@ -175,6 +175,7 @@ public class Main extends Controller {
                         controller.acces = new FileManagerModel("src/Persona.txt");
 
                     }
+
                     for (Map.Entry<String, Entity> entry : hm_entities.entrySet()) {
                         String k = entry.getKey();
                         Entity v = entry.getValue();

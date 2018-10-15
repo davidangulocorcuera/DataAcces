@@ -53,7 +53,7 @@ public class FileManagerModel implements DataManager {
     @Override
     public HashMap<String, Entity> saveEntities() throws FileNotFoundException, IOException {
         HashMap<String, Entity> hm_entities = new  HashMap<String, Entity>();
-        HashMap<Integer, Curse> hm_curses = new  HashMap<Integer, Curse>();
+        HashMap<Integer, Curse> hm_curses;
         String line;
         FileReader f = new FileReader(getStr_file());
         BufferedReader b = new BufferedReader(f);
@@ -88,17 +88,26 @@ public class FileManagerModel implements DataManager {
                     case "id_curse":
                         hm_curses = saveCurses();
                         int id_curse = Integer.parseInt(value);
+                       // System.out.println("LEIDO" + hm_curses.get(id_curse));
+
                         entity.setCurse(hm_curses.get(id_curse));
                         break;
                 }
             } else {
 
                 hm_entities.put(entity.getId(), entity);
-
+                System.out.println("PERSONA " + entity.getId() + " " + entity.getName() + " tam: "+ hm_entities.size()) ;
+                System.out.println("CURSO "  + hm_entities.get( entity.getId()).getCurse());
                 // Añado nuevo objeto al hashmap
                 entity = new Entity();
             }
         }
+
+        System.out.println(hm_entities.get(26));
+
+
+        System.out.println(hm_entities.get(26).getCurse().getId());
+
         //System.out.println("hola");
         //hm_entities.put(entity.getId(), entity);
         //System.out.println(hm_entities.get(26).getCurse().getId());

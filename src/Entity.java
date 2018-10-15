@@ -68,6 +68,9 @@ Entity {
     }
 
     public void setCurse(Curse curse) {
+
+        //System.out.println("DENTRO " + this.getName() + " : " + curse.getId());
+
         this.curse = curse;
     }
 

@@ -10,3 +10,9 @@ first_characteristic: wqeq
 second_characteristic: qweqe
 third_characteristic: wqewq
 *
+id: 23333
+name: dsds
+first_characteristic: cdscds
+second_characteristic: scdsd
+third_characteristic: dscs
+*

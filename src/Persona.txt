@@ -61,3 +61,10 @@ second_characteristic: sad
 third_characteristic: sad
 id_curse: 1
 *
+id: 231321
+name: dsafaf
+first_characteristic: sadfdasf
+second_characteristic: dsafsa
+third_characteristic: dsafsa
+id_curse: 1
+*
