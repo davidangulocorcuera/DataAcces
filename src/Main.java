@@ -150,15 +150,30 @@ public class Main extends Controller {
                 case 6:
                     if (int_option1 == 1) {
                         DataManager acces = new FileManagerModel();
-                         controller.getAcces().addAllEntities(acces);
-
-                         acces = new HibernateModel();
                         controller.getAcces().addAllEntities(acces);
-                        }
+                        System.out.println("data saved into file ");
 
-                        System.out.println("data saved in file");
+                        acces = new HibernateModel();
+                        controller.getAcces().addAllEntities(acces);
+                        System.out.println("data saved into hibernate bbdd");
+                    } else if (int_option1 == 2) {
+                        DataManager acces = new BbddModel();
+                        controller.getAcces().addAllEntities(acces);
+                        System.out.println("data saved into bbdd");
 
+                        acces = new HibernateModel();
+                        controller.getAcces().addAllEntities(acces);
+                        System.out.println("data saved into hibernate bbdd");
+                    } else if (int_option1 == 2) {
+                        DataManager acces = new BbddModel();
+                        controller.getAcces().addAllEntities(acces);
+                        System.out.println("data saved into bbdd");
 
+                        acces = new FileManagerModel();
+                        controller.getAcces().addAllEntities(acces);
+                        System.out.println("data saved into file ");
+
+                    }
 
 
                     break;
