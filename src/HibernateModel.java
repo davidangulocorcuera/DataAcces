@@ -93,12 +93,18 @@ public class HibernateModel implements DataManager {
 
     @Override
     public void addEntity(Entity entitie) throws FileNotFoundException, IOException {
-
+        session.beginTransaction();
+        session.save(entitie);
+        session.getTransaction().commit();
+        System.out.println("insert do it!");
     }
 
     @Override
     public void addCurse(Curse curse) throws FileNotFoundException, IOException {
-
+        session.beginTransaction();
+        session.save(curse);
+        session.getTransaction().commit();
+        System.out.println("insert do it!");
     }
 
     @Override

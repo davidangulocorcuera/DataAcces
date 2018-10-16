@@ -119,6 +119,7 @@ public class Main extends Controller {
                     curse = new Curse(id, str_name, str_first_characteristic, str_second_characteristic, str_third_characteristic);
                     hm_curses.put(curse.getInt_id(), curse);
                     try {
+
                         controller.getAcces().addCurse(curse);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -159,7 +160,7 @@ public class Main extends Controller {
                                 e.printStackTrace();
                             }
                         }
-                       
+
                         System.out.println("data saved in file");
 
 
