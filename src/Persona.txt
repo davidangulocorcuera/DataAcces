@@ -1,3 +1,10 @@
+id: 213
+name: fdg
+first_characteristic: fdgsg
+second_characteristic: dsfgdg
+third_characteristic: fdgds
+id_curse: 1
+*
 id: 12
 name: david
 first_characteristic: hola

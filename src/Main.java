@@ -4,11 +4,14 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Main extends Controller {
+    public Main(){
+    }
     public Main(DataManager acces, BbddModel bbddModel, FileManagerModel fileManagerModel) {
         super(acces, bbddModel, fileManagerModel);
     }
 
     public static void main(String[] args) {
+        Main main = new Main();
         Controller controller = new Controller();
         Entity entity;
         Curse curse = new Curse();
@@ -30,7 +33,7 @@ public class Main extends Controller {
             System.out.println("write the number: ");
             System.out.println("1 to acces into the bbdd if you use entities");
             System.out.println("2 to acces into the txt file if you use entities");
-            System.out.println("3 to acces into the bbdd using hibernate");
+            System.out.println("3 to acces into the hibernate bbdd");
 
             int int_option1 = sc.nextInt();
             switch (int_option1) {
@@ -65,8 +68,7 @@ public class Main extends Controller {
             System.out.println("3 to show all entities ");
             System.out.println("4 to show all curses");
             System.out.println("5 to delete one person");
-            System.out.println("6 to save all data entities (if you have been choosen acces to txt file all data will be save into the bbdd else if you have been choosen bbdd or bbdd using hibernate it will be save into the txt file.)");
-            System.out.println("7 to save all data curses (if you have been choosen acces to txt file all data will be save into the bbdd else if you have been choosen bbdd or bbdd using hibernate it will be save into the txt file.)");
+            System.out.println("6 guardar copia de seguridad");
             System.out.println("8 to exit");
             int int_option = sc.nextInt();
             switch (int_option) {
@@ -149,57 +151,44 @@ public class Main extends Controller {
                     controller.getAcces().deleteOne(int_id);
                     break;
                 case 6:
-
-
-                    if (int_option1 == 2) {
-                        controller.acces = new BbddModel();
-                    }
-                    else if(int_option == 3){
-                        controller.acces = new HibernateModel();
-                    }
-                    else {
-                        controller.acces = new FileManagerModel("src/Persona.txt");
-
-                    }
-
-                    for (Map.Entry<String, Entity> entry : hm_entities.entrySet()) {
-                        String k = entry.getKey();
-                        Entity v = entry.getValue();
+                    if (int_option1 == 1) {
                         try {
-                            controller.getAcces().addEntity(hm_entities.get(k));
+                            hm_entities = controller.getAcces().saveEntities();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                    }
-                    System.out.println("data saved!");
-
-
-                    break;
-                case 7:
-
-
-                    if (int_option1 == 2) {
-                        controller.acces = new BbddModel();
-                    }
-                    else if(int_option == 3){
-                        controller.acces = new HibernateModel();
-                    }
-                    else {
-                        controller.acces = new FileManagerModel("src/Curso.txt");
-
+                        controller.acces = new FileManagerModel();
+                        main.saveAllData(hm_entities);
+                        System.out.println("data saved in file");
+                        // for para guardar todas en hibernate
                     }
 
-                    for (Map.Entry<Integer, Curse> entry : hm_curses.entrySet()) {
-                        Integer k = entry.getKey();
-                        Curse v = entry.getValue();
+
+                    else if(int_option1 == 2){
                         try {
-                            controller.getAcces().addCurse(hm_curses.get(k));
+                            hm_entities = controller.getAcces().saveEntities();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                        controller.acces = new BbddModel();
+                        main.saveAllData(hm_entities);
+                        System.out.println("data saved in bbdd");
+                        // for para guardar todas en hibernate
                     }
-                    System.out.println("data saved!");
+                    else if(int_option1 == 3){
+                        try {
+                            hm_entities = controller.getAcces().saveEntities();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        controller.acces = new BbddModel();
+                        main.saveAllData(hm_entities);
+                        System.out.println("data saved in bbdd");
+                        controller.acces = new FileManagerModel();
+                       main.saveAllData(hm_entities);
+                        System.out.println("data saved in file");
 
+                      }
 
                     break;
 
@@ -210,5 +199,17 @@ public class Main extends Controller {
         }
     }
 
+   public void saveAllData(HashMap <String,Entity> hm_entities){
+       Controller controller = new Controller();
+       for (Map.Entry<String, Entity> entry : hm_entities.entrySet()) {
+           String k = entry.getKey();
+           Entity v = entry.getValue();
+           try {
+               controller.getAcces().addEntity(hm_entities.get(k));
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+       }
+   }
 
 }
