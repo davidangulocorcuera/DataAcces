@@ -4,8 +4,8 @@
 
 <hibernate-mapping>
 
-    <class name="Entity" table="team">
-        <id name="str_mid" type="String" length="10">
+    <class name="Entity" table="personas">
+        <id name="str_mid" type="string" length="10">
             <column name="ID" />
         </id>
 

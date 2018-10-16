@@ -4,7 +4,7 @@
 
 <hibernate-mapping>
 
-    <class name="Curse" table="team">
+    <class name="Curse" table="curso">
         <id name="int_id" type="int" length="10">
             <column name="ID" />
         </id>

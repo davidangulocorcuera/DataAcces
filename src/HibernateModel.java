@@ -2,20 +2,23 @@
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 
-public class HibernateModel {
+public class HibernateModel implements DataManager {
 
 	Session session;
 	
 	public HibernateModel() {
-		
+
 		HibernateUtil util = new HibernateUtil(); 
 		
 		session = util.getSessionFactory().openSession();
-		
+		System.out.println("conected");
 	}
 	
    /*
@@ -79,134 +82,62 @@ public class HibernateModel {
 
     	System.out.println("Fin Consulta");
     } 
-    
-	public void insertarDatosPrueba() {
-		System.out.println("Inicio Inserción Masiva");
-		
-		Equipo e1 = new Equipo();
-		e1.setNombre("UTAD TEAM");
-		
-		Equipo e2 = new Equipo();
-		e2.setNombre("DREAM TEAM");
-		
-		Jugador j1 = new Jugador();
-		j1.setNombre("Paco");
-		j1.setNumero(5);
-		j1.setEquipo(e1);
-
-		Jugador j2 = new Jugador();
-		j2.setNombre("Juan");
-		j2.setNumero(6);
-		j2.setEquipo(e1);
-		
-		Jugador j3 = new Jugador();
-		j3.setNombre("Ana");
-		j3.setNumero(7);
-		j3.setEquipo(e1);
-		
-		Jugador j4 = new Jugador();
-		j4.setNombre("Luis");
-		j4.setNumero(8);
-		j4.setEquipo(e1);
-		
-		Jugador j5 = new Jugador();
-		j5.setNombre("Lola");
-		j5.setNumero(9);
-		j5.setEquipo(e1);
-		
-		Posicion p1 = new Posicion();
-		p1.setPosicion("Pivot");
-		p1.setDescripcion("Taponar");
-		
-		Posicion p2 = new Posicion();
-		p2.setPosicion("Ala-Pivot");
-		p2.setDescripcion("Rebotes y puntos");
-		
-		Posicion p3 = new Posicion();
-		p3.setPosicion("Alero");
-		p3.setDescripcion("De todo un poco");
-		
-		Posicion p4 = new Posicion();
-		p4.setPosicion("Escolta");
-		p4.setDescripcion("Tirador");
-		
-		Posicion p5 = new Posicion();
-		p5.setPosicion("Base");
-		p5.setDescripcion("Dirigir");
-		
-		JugadorPosicion jp1 = new JugadorPosicion();
-		jp1.setJ(j1);
-		jp1.setP(p1);
-		jp1.setNumVeces(2);
-
-		JugadorPosicion jp2 = new JugadorPosicion();
-		jp2.setJ(j1);
-		jp2.setP(p2);
-		jp2.setNumVeces(3);
-		
-		JugadorPosicion jp3 = new JugadorPosicion();
-		jp3.setJ(j2);
-		jp3.setP(p2);
-		jp3.setNumVeces(1);		
-		
-		JugadorPosicion jp4 = new JugadorPosicion();
-		jp4.setJ(j4);
-		jp4.setP(p4);
-		jp4.setNumVeces(4);
-		
-		JugadorPosicion jp5 = new JugadorPosicion();
-		jp5.setJ(j5);
-		jp5.setP(p5);
-		jp5.setNumVeces(4);
-		
-		JugadorPosicion jp6 = new JugadorPosicion();
-		jp6.setJ(j3);
-		jp6.setP(p3);
-		jp6.setNumVeces(2);
-
-		JugadorPosicion jp7 = new JugadorPosicion();
-		jp7.setJ(j3);
-		jp7.setP(p4);
-		jp7.setNumVeces(2);
-		
-		
-		// Utilizamos hibernate para guardar objetos
-		
-		session.beginTransaction();
-
-		session.save(e1);
-		session.save(e2);
-		
-		session.save(j1);
-		session.save(j2);
-		session.save(j3);
-		session.save(j4);
-		session.save(j5);
-		
-		session.save(p1);
-		session.save(p2);
-		session.save(p3);
-		session.save(p4);
-		session.save(p5);
-		
-		session.save(jp1);
-		session.save(jp2);
-		session.save(jp3);
-		session.save(jp4);
-		session.save(jp5);
-		session.save(jp6);
-		session.save(jp7);
-		
-		session.getTransaction().commit();
-		
-		System.out.println("Fin Inserción Masiva");
-	}*/
+*/
     
 	public void cerrarSesion() {
 		
 		session.close();
 		
 	}
-	
 
+
+	@Override
+	public void addEntity(Entity entitie) throws FileNotFoundException, IOException {
+
+	}
+
+	@Override
+	public void addCurse(Curse curse) throws FileNotFoundException, IOException {
+
+	}
+
+	@Override
+	public void showAllCurses() throws FileNotFoundException, IOException {
+		System.out.println("Consultando cursos");
+
+		Query q= session.createQuery("select e from Curse e");
+		List results = q.list();
+
+		Iterator cursesIterator= results.iterator();
+
+		while (cursesIterator.hasNext()){
+			Curse curse = (Curse)cursesIterator.next();
+
+			System.out.println ( "Id: " + curse.getInt_id() + ", Nombre: " + curse.getStr_mname() + ", Primera Característica; " + curse.getStr_mfirst_characteristic() + ", Segunda Caracteristica: " + curse.getStr_msecond_characteristic() + ", Tercera Caracteristica: "
+			+ curse.getStr_mthird_characteristic());
+
+		}
+
+		System.out.println("Fin Consulta");
+	}
+
+	@Override
+	public HashMap<String, Entity> saveEntities() throws FileNotFoundException, IOException {
+		return null;
+	}
+
+	@Override
+	public void showAll() throws FileNotFoundException, IOException {
+
+	}
+
+	@Override
+	public void deleteOne(int id) {
+
+	}
+
+	@Override
+	public HashMap<Integer, Curse> saveCurses() throws IOException {
+		return null;
+	}
 }
