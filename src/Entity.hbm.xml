@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="Entity" table="team">
+        <id name="id" type="String" length="10">
+            <column name="ID" />
+        </id>
+
+        <property name="Nombre" type="string">
+            <column name="Nombre" length="15" not-null="true" />
+        </property>
+    </class>
+
+</hibernate-mapping>

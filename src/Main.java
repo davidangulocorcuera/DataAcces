@@ -49,6 +49,12 @@ public class Main extends Controller {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            try {
+                hm_curses = controller.getAcces().saveCurses();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             System.out.println("write the number: ");
             System.out.println("1 to add one person");
             System.out.println("2 to add one curse into BBDD");
@@ -193,20 +199,7 @@ public class Main extends Controller {
 
 
                     break;
-                case 10:
-                    try {
-                        hm_entities = controller.getAcces().saveEntities();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
 
-
-                    System.out.println("TAMAÑO HM: " + hm_entities.size());
-
-                    System.out.println("ID 26: " + hm_entities.get("26").getId());
-
-                    System.out.println(hm_entities.get("26").getCurse().getId());
-                    break;
                 case 9:
                     int_close = 0;
                 default:
