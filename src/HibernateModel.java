@@ -11,15 +11,15 @@ import java.util.List;
 
 public class HibernateModel implements DataManager {
 
-	Session session;
-	
-	public HibernateModel() {
+    Session session;
 
-		HibernateUtil util = new HibernateUtil(); 
-		
-		session = util.getSessionFactory().openSession();
-		System.out.println("conected");
-	}
+    public HibernateModel() {
+
+        HibernateUtil util = new HibernateUtil();
+
+        session = util.getSessionFactory().openSession();
+        System.out.println("conected");
+    }
 	
    /*
 	public void borrarDatos(){
@@ -83,61 +83,106 @@ public class HibernateModel implements DataManager {
     	System.out.println("Fin Consulta");
     } 
 */
-    
-	public void cerrarSesion() {
-		
-		session.close();
-		
-	}
+
+    public void cerrarSesion() {
+
+        session.close();
+
+    }
 
 
-	@Override
-	public void addEntity(Entity entitie) throws FileNotFoundException, IOException {
+    @Override
+    public void addEntity(Entity entitie) throws FileNotFoundException, IOException {
 
-	}
+    }
 
-	@Override
-	public void addCurse(Curse curse) throws FileNotFoundException, IOException {
+    @Override
+    public void addCurse(Curse curse) throws FileNotFoundException, IOException {
 
-	}
+    }
 
-	@Override
-	public void showAllCurses() throws FileNotFoundException, IOException {
-		System.out.println("Consultando cursos");
+    @Override
+    public void showAllCurses() throws FileNotFoundException, IOException {
+        System.out.println("Consultando cursos");
 
-		Query q= session.createQuery("select e from Curse e");
-		List results = q.list();
+        Query q = session.createQuery("select e from Curse e");
+        List results = q.list();
 
-		Iterator cursesIterator= results.iterator();
+        Iterator cursesIterator = results.iterator();
 
-		while (cursesIterator.hasNext()){
-			Curse curse = (Curse)cursesIterator.next();
+        while (cursesIterator.hasNext()) {
+            Curse curse = (Curse) cursesIterator.next();
 
-			System.out.println ( "Id: " + curse.getInt_id() + ", Nombre: " + curse.getStr_mname() + ", Primera Característica; " + curse.getStr_mfirst_characteristic() + ", Segunda Caracteristica: " + curse.getStr_msecond_characteristic() + ", Tercera Caracteristica: "
-			+ curse.getStr_mthird_characteristic());
+            System.out.println("Id: " + curse.getInt_id() + ", Nombre: " + curse.getStr_mname() + ", Primera Característica; " + curse.getStr_mfirst_characteristic() + ", Segunda Caracteristica: " + curse.getStr_msecond_characteristic() + ", Tercera Caracteristica: "
+                    + curse.getStr_mthird_characteristic());
 
-		}
+        }
 
-		System.out.println("Fin Consulta");
-	}
+        System.out.println("Fin Consulta");
+    }
 
-	@Override
-	public HashMap<String, Entity> saveEntities() throws FileNotFoundException, IOException {
-		return null;
-	}
+    @Override
+    public HashMap<String, Entity> saveEntities() throws FileNotFoundException, IOException {
+        HashMap<String, Entity> hm_entities = new HashMap<String, Entity>();
 
-	@Override
-	public void showAll() throws FileNotFoundException, IOException {
 
-	}
+        Query q = session.createQuery("select e from Entity e");
+        List results = q.list();
 
-	@Override
-	public void deleteOne(int id) {
+        Iterator entitiesIterator = results.iterator();
 
-	}
+        while (entitiesIterator.hasNext()) {
+            Entity entity = (Entity) entitiesIterator.next();
+            hm_entities.put(entity.getStr_mid(), entity);
 
-	@Override
-	public HashMap<Integer, Curse> saveCurses() throws IOException {
-		return null;
-	}
+        }
+
+
+        return hm_entities;
+    }
+
+    @Override
+    public void showAll() throws FileNotFoundException, IOException {
+        System.out.println("Consultando entidades");
+
+        Query q = session.createQuery("select e from Entity e");
+        List results = q.list();
+
+        Iterator entitiesIterator = results.iterator();
+
+        while (entitiesIterator.hasNext()) {
+            Entity entity = (Entity) entitiesIterator.next();
+
+            System.out.println("Id: " + entity.getStr_mid() + ", Nombre: " + entity.getStr_mname() + ", Primera Característica; " + entity.getStr_mfirst_characteristic() + ", Segunda Caracteristica: " + entity.getStr_msecond_characteristic() + ", Tercera Caracteristica: "
+                    + entity.getStr_mthird_characteristic() + " , id del curso: " + entity.getCurse().getInt_id());
+
+        }
+
+        System.out.println("Fin Consulta");
+    }
+
+    @Override
+    public void deleteOne(int id) {
+
+    }
+
+    @Override
+    public HashMap<Integer, Curse> saveCurses() throws IOException {
+        HashMap<Integer, Curse> hm_curses = new HashMap<Integer, Curse>();
+
+
+        Query q = session.createQuery("select e from Curse e");
+        List results = q.list();
+
+        Iterator cursesIterator = results.iterator();
+
+        while (cursesIterator.hasNext()) {
+            Curse curse = (Curse) cursesIterator.next();
+            hm_curses.put(curse.getInt_id(), curse);
+
+        }
+
+
+        return hm_curses;
+    }
 }

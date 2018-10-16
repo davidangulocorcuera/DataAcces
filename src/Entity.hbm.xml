@@ -21,7 +21,7 @@
         <property name="str_mthird_characteristic" type="string">
             <column name="CaracteristicaTres" length="10" not-null="true" />
         </property>
-        <many-to-one name = "int_idCurse" column = "Curso"
+        <many-to-one name = "curse" column = "ID_curso"
                      not-null="true"/>
     </class>
 

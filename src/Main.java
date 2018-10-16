@@ -65,8 +65,8 @@ public class Main extends Controller {
             System.out.println("3 to show all entities ");
             System.out.println("4 to show all curses");
             System.out.println("5 to delete one person");
-            System.out.println("6 to save all data entities (if you have been choosen acces to txt file all data will be save into the bbdd else it will be save into the txt file.)");
-            System.out.println("7 to save all data curses (if you have been choosen acces to txt file all data will be save into the bbdd else it will be save into the txt file.)");
+            System.out.println("6 to save all data entities (if you have been choosen acces to txt file all data will be save into the bbdd else if you have been choosen bbdd or bbdd using hibernate it will be save into the txt file.)");
+            System.out.println("7 to save all data curses (if you have been choosen acces to txt file all data will be save into the bbdd else if you have been choosen bbdd or bbdd using hibernate it will be save into the txt file.)");
             System.out.println("8 to exit");
             int int_option = sc.nextInt();
             switch (int_option) {
@@ -153,7 +153,11 @@ public class Main extends Controller {
 
                     if (int_option1 == 2) {
                         controller.acces = new BbddModel();
-                    } else {
+                    }
+                    else if(int_option == 3){
+                        controller.acces = new HibernateModel();
+                    }
+                    else {
                         controller.acces = new FileManagerModel("src/Persona.txt");
 
                     }
@@ -176,7 +180,11 @@ public class Main extends Controller {
 
                     if (int_option1 == 2) {
                         controller.acces = new BbddModel();
-                    } else {
+                    }
+                    else if(int_option == 3){
+                        controller.acces = new HibernateModel();
+                    }
+                    else {
                         controller.acces = new FileManagerModel("src/Curso.txt");
 
                     }
