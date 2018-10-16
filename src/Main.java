@@ -94,7 +94,7 @@ public class Main extends Controller {
                         System.out.println("ese id no existe");
                     } else {
                         entity = new Entity(str_id, str_name, str_first_characteristic, str_second_characteristic, str_third_characteristic, curse);
-                        hm_entities.put(entity.getId(), entity);
+                        hm_entities.put(entity.getStr_mid(), entity);
                         try {
                             controller.getAcces().addEntity(entity);
                         } catch (IOException e) {
@@ -116,7 +116,7 @@ public class Main extends Controller {
                     System.out.println("Add the third characteristic");
                     str_third_characteristic = sc.next();
                     curse = new Curse(id, str_name, str_first_characteristic, str_second_characteristic, str_third_characteristic);
-                    hm_curses.put(curse.getId(), curse);
+                    hm_curses.put(curse.getInt_id(), curse);
                     try {
                         controller.getBbddModel().addCurse(curse);
                     } catch (IOException e) {

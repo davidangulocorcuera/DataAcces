@@ -19,12 +19,12 @@ public class FileManagerModel implements DataManager {
         try {
             FileWriter fw = new FileWriter(getStr_file(), true);
             BufferedWriter bw = new BufferedWriter(fw);
-            fw.write("id: " + entity.getId() + "\n");
-            fw.write("name: " + entity.getName() + "\n");
-            fw.write("first_characteristic: " + entity.getFirstCharacteristic() + "\n");
-            fw.write("second_characteristic: " + entity.getSecondCharacteristic() + "\n");
-            fw.write("third_characteristic: " + entity.getSecondCharacteristic() + "\n");
-            fw.write("id_curse: " + entity.getCurse().getId() + "\n"
+            fw.write("id: " + entity.getStr_mid() + "\n");
+            fw.write("name: " + entity.getStr_mname() + "\n");
+            fw.write("first_characteristic: " + entity.getStr_mfirst_characteristic() + "\n");
+            fw.write("second_characteristic: " + entity.getStr_msecond_characteristic() + "\n");
+            fw.write("third_characteristic: " + entity.getStr_mthird_characteristic() + "\n");
+            fw.write("id_curse: " + entity.getCurse().getInt_id() + "\n"
                     + "*" + "\n");
 
             bw.close();
@@ -36,11 +36,11 @@ public class FileManagerModel implements DataManager {
         try {
             FileWriter fw = new FileWriter("src/Curso.txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
-            fw.write("id: " + curse.getId() + "\n");
-            fw.write("name: " + curse.getName() + "\n");
-            fw.write("first_characteristic: " + curse.getFirstCharacteristic() + "\n");
-            fw.write("second_characteristic: " + curse.getSecondCharacteristic() + "\n");
-            fw.write("third_characteristic: " + curse.getThirdCharacteristic() + "\n"
+            fw.write("id: " + curse.getInt_id() + "\n");
+            fw.write("name: " + curse.getStr_mname() + "\n");
+            fw.write("first_characteristic: " + curse.getStr_mfirst_characteristic() + "\n");
+            fw.write("second_characteristic: " + curse.getStr_msecond_characteristic() + "\n");
+            fw.write("third_characteristic: " + curse.getStr_mthird_characteristic() + "\n"
                     + "*" + "\n");
 
             bw.close();
@@ -71,19 +71,19 @@ public class FileManagerModel implements DataManager {
 
                 switch (key) {
                     case "id":
-                        entity.setId(value);
+                        entity.setStr_mid(value);
                         break;
                     case "name":
-                        entity.setName(value);
+                        entity.setStr_mname(value);
                         break;
                     case "first_characteristic":
-                        entity.setFirstCharacteristic(value);
+                        entity.setStr_mfirst_characteristic(value);
                         break;
                     case "second_characteristic":
-                        entity.setSecondCharacteristic(value);
+                        entity.setStr_msecond_characteristic(value);
                         break;
                     case "third_characteristic":
-                        entity.setThirdCharacteristic(value);
+                        entity.setStr_mthird_characteristic(value);
 
                         break;
                     case "id_curse":
@@ -96,7 +96,7 @@ public class FileManagerModel implements DataManager {
                 }
             } else {
 
-                hm_entities.put(entity.getId(), entity);
+                hm_entities.put(entity.getStr_mid(), entity);
                 // Añado nuevo objeto al hashmap
                 entity = new Entity();
 
@@ -140,23 +140,23 @@ public class FileManagerModel implements DataManager {
 
                 switch (key) {
                     case "id":
-                       curse.setId(Integer.parseInt(value));
+                       curse.setInt_id(Integer.parseInt(value));
                         break;
                     case "name":
-                        curse.setName(value);
+                        curse.setStr_mname(value);
                         break;
                     case "first_characteristic":
-                        curse.setFirstCharacteristic(value);
+                        curse.setStr_mfirst_characteristic(value);
                         break;
                     case "second_characteristic":
-                        curse.setSecondCharacteristic(value);
+                        curse.setStr_msecond_characteristic(value);
                         break;
                     case "third_characteristic":
-                        curse.setThirdCharacteristic(value);
+                        curse.setStr_mthird_characteristic(value);
                         break;
                 }
             } else {
-                hm_curses.put(curse.getId(), curse);
+                hm_curses.put(curse.getInt_id(), curse);
                 // Añado nuevo objeto al hashmap
                 curse = new Curse();
             }

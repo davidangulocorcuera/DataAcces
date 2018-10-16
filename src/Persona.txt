@@ -5,3 +5,10 @@ second_characteristic: hola
 third_characteristic: hola
 id_curse: 1
 *
+id: 23323
+name: jota
+first_characteristic: mayuscula
+second_characteristic: eazy
+third_characteristic: e
+id_curse: 1
+*

@@ -6,12 +6,19 @@ Entity {
     private String str_msecond_characteristic;
     private String str_mthird_characteristic;
     private Curse curse;
+    private Curse int_idCurse;
+
+    public Curse getInt_idCurse() {
+        return int_idCurse;
+    }
+
+    public void setInt_idCurse(Curse int_idCurse) {
+        this.int_idCurse = int_idCurse;
+    }
 
 
     public Entity() {
-    }// creamos otro constructor para instanciar el objeto sin necesidad
-    // de pasarle los parametros
-
+    }
     public Entity(String str_mid, String str_mname, String str_mfirst_characteristic, String str_msecond_characteristic, String str_mthird_characteristic, Curse curse) {
         this.str_mid = str_mid;
         this.str_mname = str_mname;
@@ -22,44 +29,48 @@ Entity {
     }
 
 
-    public String getFirstCharacteristic() {
-        return str_mfirst_characteristic;
-    }
-
-    public void setFirstCharacteristic(String str_mfirst_characteristic) {
-        this.str_mfirst_characteristic = str_mfirst_characteristic;
-    }
-
-    public String getSecondCharacteristic() {
-        return str_msecond_characteristic;
-    }
-
-    public void setSecondCharacteristic(String str_msecond_characteristic) {
-        this.str_msecond_characteristic = str_msecond_characteristic;
-    }
-
-    public String getThirdCharacteristic() {
-        return str_mthird_characteristic;
-    }
-
-    public void setThirdCharacteristic(String str_mthird_characteristic) {
-        this.str_mthird_characteristic = str_mthird_characteristic;
-    }
-
-    public String getName() {
-        return str_mname;
-    }
-
-    public void setName(String str_mname) {
-        this.str_mname = str_mname;
-    }
-
-    public String getId() {
+    public String getStr_mid() {
         return str_mid;
     }
 
-    public void setId(String str_mid) {
+    public void setStr_mid(String str_mid) {
         this.str_mid = str_mid;
+    }
+
+
+    public String getStr_mname() {
+        return str_mname;
+    }
+
+    public void setStr_mname(String str_mname) {
+        this.str_mname = str_mname;
+    }
+
+
+    public String getStr_mfirst_characteristic() {
+        return str_mfirst_characteristic;
+    }
+
+    public void setStr_mfirst_characteristic(String str_mfirst_characteristic) {
+        this.str_mfirst_characteristic = str_mfirst_characteristic;
+    }
+
+
+    public String getStr_msecond_characteristic() {
+        return str_msecond_characteristic;
+    }
+
+    public void setStr_msecond_characteristic(String str_msecond_characteristic) {
+        this.str_msecond_characteristic = str_msecond_characteristic;
+    }
+
+
+    public String getStr_mthird_characteristic() {
+        return str_mthird_characteristic;
+    }
+
+    public void setStr_mthird_characteristic(String str_mthird_characteristic) {
+        this.str_mthird_characteristic = str_mthird_characteristic;
     }
 
 
@@ -69,7 +80,6 @@ Entity {
 
     public void setCurse(Curse curse) {
 
-        //System.out.println("DENTRO " + this.getName() + " : " + curse.getId());
 
         this.curse = curse;
     }

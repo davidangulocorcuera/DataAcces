@@ -55,7 +55,7 @@ public class BbddModel implements DataManager {
         try (PreparedStatement stmt = conexion.prepareStatement("SELECT * FROM personas")) {
             ResultSet rs = stmt.executeQuery();
             try {
-                int id = Integer.parseInt(entitie.getId());
+                int id = Integer.parseInt(entitie.getStr_mid());
                 while (rs.next()) {
                     if (rs.getInt("ID") == id) {
                         bl_ok = false;
@@ -74,13 +74,13 @@ public class BbddModel implements DataManager {
         if (bl_ok) {
             try (PreparedStatement stmt = conexion.prepareStatement("INSERT INTO personas(ID,Nombre,CaracteristicaUno,CaracteristicaDos,CaracteristicaTres,ID_curso) VALUES (?,?,?,?,?,?)")) {
                 try {
-                    int id = Integer.parseInt(entitie.getId());
+                    int id = Integer.parseInt(entitie.getStr_mid());
                     stmt.setInt(1, id);
-                    stmt.setString(2, entitie.getName());
-                    stmt.setString(3, entitie.getFirstCharacteristic());
-                    stmt.setString(4, entitie.getSecondCharacteristic());
-                    stmt.setString(5, entitie.getThirdCharacteristic());
-                    stmt.setInt(6, entitie.getCurse().getId()) ;
+                    stmt.setString(2, entitie.getStr_mname());
+                    stmt.setString(3, entitie.getStr_mfirst_characteristic());
+                    stmt.setString(4, entitie.getStr_msecond_characteristic());
+                    stmt.setString(5, entitie.getStr_mthird_characteristic());
+                    stmt.setInt(6, entitie.getCurse().getInt_id()) ;
 
                     System.out.println(stmt.toString());
 
@@ -105,7 +105,7 @@ public class BbddModel implements DataManager {
         try (PreparedStatement stmt = conexion.prepareStatement("SELECT * FROM curso")) {
             ResultSet rs = stmt.executeQuery();
             try {
-                int id = curse.getId();
+                int id = curse.getInt_id();
                 while (rs.next()) {
                     if (rs.getInt("ID") == id) {
                         bl_ok = false;
@@ -124,11 +124,11 @@ public class BbddModel implements DataManager {
         if (bl_ok) {
             try (PreparedStatement stmt = conexion.prepareStatement("INSERT INTO curso(ID,Nombre,CaracteristicaUno,CaracteristicaDos,CaracteristicaTres) VALUES (?,?,?,?,?)")) {
                 try {
-                    stmt.setInt(1, curse.getId());
-                    stmt.setString(2, curse.getName());
-                    stmt.setString(3, curse.getFirstCharacteristic());
-                    stmt.setString(4, curse.getSecondCharacteristic());
-                    stmt.setString(5, curse.getThirdCharacteristic());
+                    stmt.setInt(1, curse.getInt_id());
+                    stmt.setString(2, curse.getStr_mname());
+                    stmt.setString(3, curse.getStr_mfirst_characteristic());
+                    stmt.setString(4, curse.getStr_msecond_characteristic());
+                    stmt.setString(5, curse.getStr_mthird_characteristic());
 
 
                     System.out.println(stmt.toString());

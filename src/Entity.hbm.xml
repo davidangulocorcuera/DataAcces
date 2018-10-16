@@ -5,13 +5,24 @@
 <hibernate-mapping>
 
     <class name="Entity" table="team">
-        <id name="id" type="String" length="10">
+        <id name="str_mid" type="String" length="10">
             <column name="ID" />
         </id>
 
-        <property name="Nombre" type="string">
+        <property name="str_mname" type="string">
             <column name="Nombre" length="15" not-null="true" />
         </property>
+        <property name="str_mfirst_characteristic" type="string">
+            <column name="CaracteristicaUno" length="10" not-null="true" />
+        </property>
+        <property name="str_msecond_characteristic" type="string">
+            <column name="CaracteristicaDos" length="10" not-null="true" />
+        </property>
+        <property name="str_mthird_characteristic" type="string">
+            <column name="CaracteristicaTres" length="10" not-null="true" />
+        </property>
+        <many-to-one name = "int_idCurse" column = "Curso"
+                     not-null="true"/>
     </class>
 
 </hibernate-mapping>
