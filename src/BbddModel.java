@@ -224,6 +224,20 @@ public class BbddModel implements DataManager {
             }
         }
     }
+    @Override
+    public void addAllCurses(DataManager acces) {
+        HashMap<Integer, Curse> hm_curses = new  HashMap<Integer, Curse>();
+        hm_curses = saveCurses();
+        for (Map.Entry<Integer, Curse> entry : hm_curses.entrySet()) {
+            Integer k = entry.getKey();
+            Curse v = entry.getValue();
+            try {
+                acces.addCurse(hm_curses.get(k));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public void showAllCurses() throws FileNotFoundException, IOException {
         try (PreparedStatement stmt = conexion.prepareStatement("SELECT * FROM curso")) {

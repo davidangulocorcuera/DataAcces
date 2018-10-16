@@ -125,6 +125,24 @@ public class HibernateModel implements DataManager {
             }
         }
     }
+    @Override
+    public void addAllCurses(DataManager acces) {
+        HashMap<Integer, Curse> hm_curses = new  HashMap<Integer, Curse>();
+        try {
+            hm_curses = saveCurses();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (Map.Entry<Integer, Curse> entry : hm_curses.entrySet()) {
+            Integer k = entry.getKey();
+            Curse v = entry.getValue();
+            try {
+                acces.addCurse(hm_curses.get(k));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     @Override
     public void showAllCurses() throws FileNotFoundException, IOException {

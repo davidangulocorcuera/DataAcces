@@ -1,24 +1,24 @@
-id: 12112
-name: sadad
-first_characteristic: sdad
-second_characteristic: sadsad
-third_characteristic: sadad
+id: 1
+name: rde
+first_characteristic: der
+second_characteristic: erd
+third_characteristic: erde
 *
 id: 21
-name: damp2
-first_characteristic: wqeq
-second_characteristic: qweqe
-third_characteristic: wqewq
+name: wewqe
+first_characteristic: wqewq
+second_characteristic: ewqe
+third_characteristic: qwe
 *
-id: 2323232
-name: erw
-first_characteristic: rewr
-second_characteristic: rewr
-third_characteristic: ewr
+id: 232
+name: wedw
+first_characteristic: dwedwd
+second_characteristic: wed
+third_characteristic: wedw
 *
-id: 323233323
-name: ff
-first_characteristic: sdfdsf
-second_characteristic: dsfs
-third_characteristic: dfsdf
+id: 12
+name: sfadf
+first_characteristic: adsgas
+second_characteristic: gdsagsa
+third_characteristic: gsagasg
 *

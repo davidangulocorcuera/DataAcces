@@ -11,5 +11,6 @@ public interface DataManager {
     public void deleteOne(int id);
     public HashMap<Integer, Curse> saveCurses() throws IOException;
     public void addAllEntities(DataManager acces);
+    public void addAllCurses(DataManager acces);
 
 }
