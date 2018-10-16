@@ -17,7 +17,7 @@ public class FileManagerModel implements DataManager {
     @Override
     public void addEntity(Entity entity) throws FileNotFoundException, IOException {
         try {
-            FileWriter fw = new FileWriter(getStr_file(), true);
+            FileWriter fw = new FileWriter("src/Persona.txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
             fw.write("id: " + entity.getStr_mid() + "\n");
             fw.write("name: " + entity.getStr_mname() + "\n");
@@ -180,6 +180,25 @@ public class FileManagerModel implements DataManager {
             System.out.println(str_text);
         }
         b.close();
+    }
+    @Override
+    public void addAllEntities(DataManager acces) {
+
+        HashMap<String, Entity> hm_entities = new  HashMap<String, Entity>();
+        try {
+            hm_entities = saveEntities();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (Map.Entry<String, Entity> entry : hm_entities.entrySet()) {
+            String k = entry.getKey();
+            Entity v = entry.getValue();
+            try {
+                acces.addEntity(hm_entities.get(k));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
     public void showAllCurses() throws FileNotFoundException, IOException {
         String str_text;

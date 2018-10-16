@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 
 public class HibernateModel implements DataManager {
@@ -105,6 +106,24 @@ public class HibernateModel implements DataManager {
         session.save(curse);
         session.getTransaction().commit();
         System.out.println("insert do it!");
+    }
+    @Override
+    public void addAllEntities(DataManager acces) {
+        HashMap<String, Entity> hm_entities = new  HashMap<String, Entity>();
+        try {
+            hm_entities = saveEntities();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (Map.Entry<String, Entity> entry : hm_entities.entrySet()) {
+            String k = entry.getKey();
+            Entity v = entry.getValue();
+            try {
+                acces.addEntity(hm_entities.get(k));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

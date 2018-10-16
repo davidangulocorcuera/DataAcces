@@ -66,7 +66,7 @@ public class Main extends Controller {
             System.out.println("4 to show all curses");
             System.out.println("5 to delete one person");
             System.out.println("6 guardar copia de seguridad");
-            System.out.println("8 to exit");
+            System.out.println("7 to exit");
             int int_option = sc.nextInt();
             switch (int_option) {
                 case 1:
@@ -88,8 +88,7 @@ public class Main extends Controller {
                     str_third_characteristic = sc.next();
                     System.out.println("Add the id curse");
                     id_curse = sc.nextInt();
-                    //controller.getAcces().searchCurse(id_curse);
-                    hm_curses = controller.saveCurses();
+
                     curse = hm_curses.get(id_curse);
 
                     if (curse == null) {
@@ -150,25 +149,21 @@ public class Main extends Controller {
                     break;
                 case 6:
                     if (int_option1 == 1) {
+                        DataManager acces = new FileManagerModel();
+                         controller.getAcces().addAllEntities(acces);
 
-                        for (Map.Entry<String, Entity> entry : hm_entities.entrySet()) {
-                            String k = entry.getKey();
-                            Entity v = entry.getValue();
-                            try {
-                                controller.getAcces().addEntity(hm_entities.get(k));
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                         acces = new HibernateModel();
+                        controller.getAcces().addAllEntities(acces);
                         }
 
                         System.out.println("data saved in file");
 
 
-                      }
+
 
                     break;
 
-                case 8:
+                case 7:
                     int_close = 0;
                 default:
             }

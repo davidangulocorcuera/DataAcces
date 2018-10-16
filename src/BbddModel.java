@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 public class BbddModel implements DataManager {
@@ -208,6 +209,22 @@ public class BbddModel implements DataManager {
         }
         return hm_curses; // Devuelvo hashmap con los resultados
     }
+
+    @Override
+    public void addAllEntities(DataManager acces) {
+        HashMap<String, Entity> hm_entities = new  HashMap<String, Entity>();
+        hm_entities = saveEntities();
+        for (Map.Entry<String, Entity> entry : hm_entities.entrySet()) {
+            String k = entry.getKey();
+            Entity v = entry.getValue();
+            try {
+               acces.addEntity(hm_entities.get(k));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void showAllCurses() throws FileNotFoundException, IOException {
         try (PreparedStatement stmt = conexion.prepareStatement("SELECT * FROM curso")) {
             ResultSet rs = stmt.executeQuery();

@@ -1,0 +1,7 @@
+id: 1313
+name: wedw
+first_characteristic: dwed
+second_characteristic: wde
+third_characteristic: dw
+id_curse: 21
+*
