@@ -5,12 +5,10 @@ import java.util.Scanner;
 public class Controller extends BbddModel {
     public Controller(DataManager acces, BbddModel bbddModel, FileManagerModel fileManagerModel) {
         this.acces = acces;
-        this.bbddModel = bbddModel;
-        this.fileManagerModel = fileManagerModel;
+
     }
     DataManager acces;
-    BbddModel bbddModel= new BbddModel();
-    FileManagerModel fileManagerModel = new FileManagerModel();
+
 
     public Controller() {
 
@@ -20,13 +18,7 @@ public class Controller extends BbddModel {
         return acces;
     }
 
-    public BbddModel getBbddModel() {
-        return bbddModel;
-    }
 
-    public FileManagerModel getFileManagerModel() {
-        return fileManagerModel;
-    }
 
 
 

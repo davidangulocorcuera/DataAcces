@@ -56,15 +56,14 @@ public class Main extends Controller {
             }
 
             System.out.println("write the number: ");
-            System.out.println("1 to add one person");
-            System.out.println("2 to add one curse into BBDD");
-            System.out.println("3 to add one curse into the file");
-            System.out.println("4 to show all people ");
-            System.out.println("5 to show all curses from file ");
-            System.out.println("6 to show all curses from BBDD ");
-            System.out.println("7 to delete one person");
-            System.out.println("8 to save all data (if you have been choosen acces to txt file all data will be save into the bbdd else it will be save into the txt file.)");
-            System.out.println("9 to exit");
+            System.out.println("1 to add one entitie");
+            System.out.println("2 to add one curse");
+            System.out.println("3 to show all entities ");
+            System.out.println("4 to show all curses");
+            System.out.println("5 to delete one person");
+            System.out.println("6 to save all data entities (if you have been choosen acces to txt file all data will be save into the bbdd else it will be save into the txt file.)");
+            System.out.println("7 to save all data curses (if you have been choosen acces to txt file all data will be save into the bbdd else it will be save into the txt file.)");
+            System.out.println("8 to exit");
             int int_option = sc.nextInt();
             switch (int_option) {
                 case 1:
@@ -104,7 +103,6 @@ public class Main extends Controller {
                     break;
                 case 2:
 
-                    hm_curses = controller.getBbddModel().saveCurses();
                     System.out.println("Add the ID");
                     int id = sc.nextInt();
                     System.out.println("Add the name");
@@ -118,35 +116,13 @@ public class Main extends Controller {
                     curse = new Curse(id, str_name, str_first_characteristic, str_second_characteristic, str_third_characteristic);
                     hm_curses.put(curse.getInt_id(), curse);
                     try {
-                        controller.getBbddModel().addCurse(curse);
+                        controller.getAcces().addCurse(curse);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
 
                     break;
                 case 3:
-
-                    System.out.println("Add the ID");
-                    id = sc.nextInt();
-                    System.out.println("Add the name");
-                    str_name = sc.next();
-                    System.out.println("Add the first characteristic");
-                    str_first_characteristic = sc.next();
-                    System.out.println("Add the second characteristic");
-                    str_second_characteristic = sc.next();
-                    System.out.println("Add the third characteristic");
-                    str_third_characteristic = sc.next();
-                    curse = new Curse(id, str_name, str_first_characteristic, str_second_characteristic, str_third_characteristic);
-
-                    try {
-                        controller.getFileManagerModel().addCurse(curse);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-
-                    break;
-                case 4:
                     try {
                         controller.getAcces().showAll();
                     } catch (IOException e) {
@@ -154,29 +130,21 @@ public class Main extends Controller {
                     }
 
                     break;
-                case 5:
+                case 4:
                     try {
-                        controller.getFileManagerModel().showAllCurses();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    break;
-                case 6:
-                    try {
-                        controller.bbddModel.showAllCurses();
+                        controller.getAcces().showAllCurses();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
 
                     break;
                 //borrar
-                case 7:
+                case 5:
                     System.out.println("write the id of the person you want to delete");
                     int int_id = sc.nextInt();
                     controller.getAcces().deleteOne(int_id);
                     break;
-                case 8:
+                case 6:
 
 
                     if (int_option1 == 2) {
@@ -199,8 +167,31 @@ public class Main extends Controller {
 
 
                     break;
+                case 7:
 
-                case 9:
+
+                    if (int_option1 == 2) {
+                        controller.acces = new BbddModel();
+                    } else {
+                        controller.acces = new FileManagerModel("src/Curso.txt");
+
+                    }
+
+                    for (Map.Entry<Integer, Curse> entry : hm_curses.entrySet()) {
+                        Integer k = entry.getKey();
+                        Curse v = entry.getValue();
+                        try {
+                            controller.getAcces().addCurse(hm_curses.get(k));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    System.out.println("data saved!");
+
+
+                    break;
+
+                case 8:
                     int_close = 0;
                 default:
             }
