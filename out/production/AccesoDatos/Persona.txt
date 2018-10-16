@@ -1,70 +1,7 @@
-id: 26
-name: holadddd
-first_characteristic: hola
-second_characteristic: hola
-third_characteristic: hola
-id_curse: 1
-*
-id: 3
-name: sc
-first_characteristic: sdc
-second_characteristic: sdc
-third_characteristic: sd
-id_curse: 1
-*
-id: 36
-name: holadddd
-first_characteristic: hola
-second_characteristic: hola
-third_characteristic: hola
-id_curse: 1
-*
 id: 12
-name: cscd
-first_characteristic: sdcds
-second_characteristic: sdcs
-third_characteristic: sdc
-id_curse: 1
-*
-id: 23
-name: hola
-first_characteristic: hola
-second_characteristic: hola
-third_characteristic: hola
-id_curse: 1
-*
-id: 34
-name: hola
-first_characteristic: hola
-second_characteristic: hola
-third_characteristic: hola
-id_curse: 1
-*
-id: 56
 name: david
 first_characteristic: hola
 second_characteristic: hola
 third_characteristic: hola
-id_curse: 1
-*
-id: 12121212121212
-name: wqdwaqdwd
-first_characteristic: qwdwqd
-second_characteristic: wqdwqd
-third_characteristic: wqdwqd
-id_curse: 1
-*
-id: 131212
-name: qweqwe
-first_characteristic: holaquetal
-second_characteristic: sad
-third_characteristic: sad
-id_curse: 1
-*
-id: 231321
-name: dsafaf
-first_characteristic: sadfdasf
-second_characteristic: dsafsa
-third_characteristic: dsafsa
 id_curse: 1
 *

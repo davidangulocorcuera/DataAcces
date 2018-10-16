@@ -61,6 +61,7 @@ public class FileManagerModel implements DataManager {
         // Extrae listado de personas
 
         Entity entity = new Entity();
+        hm_curses = saveCurses();
         while ((line = b.readLine()) != null) {
             // Itera resultados
             if (!line.equals("*")) {
@@ -86,7 +87,7 @@ public class FileManagerModel implements DataManager {
 
                         break;
                     case "id_curse":
-                        hm_curses = saveCurses();
+
                         int id_curse = Integer.parseInt(value);
                        // System.out.println("LEIDO" + hm_curses.get(id_curse));
 
@@ -96,17 +97,15 @@ public class FileManagerModel implements DataManager {
             } else {
 
                 hm_entities.put(entity.getId(), entity);
-                System.out.println("PERSONA " + entity.getId() + " " + entity.getName() + " tam: "+ hm_entities.size()) ;
-                System.out.println("CURSO "  + hm_entities.get( entity.getId()).getCurse());
                 // Añado nuevo objeto al hashmap
                 entity = new Entity();
+
+
             }
+
         }
 
-        System.out.println(hm_entities.get(26));
 
-
-        System.out.println(hm_entities.get(26).getCurse().getId());
 
         //System.out.println("hola");
         //hm_entities.put(entity.getId(), entity);
