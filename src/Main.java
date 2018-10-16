@@ -4,14 +4,11 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Main extends Controller {
-    public Main(){
-    }
     public Main(DataManager acces, BbddModel bbddModel, FileManagerModel fileManagerModel) {
         super(acces, bbddModel, fileManagerModel);
     }
 
     public static void main(String[] args) {
-        Main main = new Main();
         Controller controller = new Controller();
         Entity entity;
         Curse curse = new Curse();
@@ -152,41 +149,19 @@ public class Main extends Controller {
                     break;
                 case 6:
                     if (int_option1 == 1) {
-                        try {
-                            hm_entities = controller.getAcces().saveEntities();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        controller.acces = new FileManagerModel();
-                        main.saveAllData(hm_entities);
-                        System.out.println("data saved in file");
-                        // for para guardar todas en hibernate
-                    }
 
-
-                    else if(int_option1 == 2){
-                        try {
-                            hm_entities = controller.getAcces().saveEntities();
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        for (Map.Entry<String, Entity> entry : hm_entities.entrySet()) {
+                            String k = entry.getKey();
+                            Entity v = entry.getValue();
+                            try {
+                                controller.getAcces().addEntity(hm_entities.get(k));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
-                        controller.acces = new BbddModel();
-                        main.saveAllData(hm_entities);
-                        System.out.println("data saved in bbdd");
-                        // for para guardar todas en hibernate
-                    }
-                    else if(int_option1 == 3){
-                        try {
-                            hm_entities = controller.getAcces().saveEntities();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        controller.acces = new BbddModel();
-                        main.saveAllData(hm_entities);
-                        System.out.println("data saved in bbdd");
-                        controller.acces = new FileManagerModel();
-                       main.saveAllData(hm_entities);
+                       
                         System.out.println("data saved in file");
+
 
                       }
 
@@ -199,17 +174,5 @@ public class Main extends Controller {
         }
     }
 
-   public void saveAllData(HashMap <String,Entity> hm_entities){
-       Controller controller = new Controller();
-       for (Map.Entry<String, Entity> entry : hm_entities.entrySet()) {
-           String k = entry.getKey();
-           Entity v = entry.getValue();
-           try {
-               controller.getAcces().addEntity(hm_entities.get(k));
-           } catch (IOException e) {
-               e.printStackTrace();
-           }
-       }
-   }
 
 }
