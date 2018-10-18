@@ -22,3 +22,9 @@ first_characteristic: adsgas
 second_characteristic: gdsagsa
 third_characteristic: gsagasg
 *
+id: 12343
+name: sfadf
+first_characteristic: adsgas
+second_characteristic: gdsagsa
+third_characteristic: gsagasg
+*

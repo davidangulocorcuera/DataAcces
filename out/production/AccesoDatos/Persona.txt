@@ -1,0 +1,42 @@
+id: 1313
+name: wedw
+first_characteristic: dwed
+second_characteristic: wde
+third_characteristic: dw
+id_curse: 21
+*
+id: 324
+name: dfas
+first_characteristic: sfdasd
+second_characteristic: dsafs
+third_characteristic: sdfdasf
+id_curse: 12
+*
+id: 3245443
+name: wedw
+first_characteristic: dwed
+second_characteristic: wde
+third_characteristic: dw
+id_curse: 21
+*
+id: 2332
+name: wedw
+first_characteristic: dwed
+second_characteristic: wde
+third_characteristic: dw
+id_curse: 21
+*
+id: 2122
+name: erfe
+first_characteristic: ferfre
+second_characteristic: ferf
+third_characteristic: erf
+id_curse: 21
+*
+id: 13135
+name: wedw
+first_characteristic: dwed
+second_characteristic: wde
+third_characteristic: dw
+id_curse: 21
+*

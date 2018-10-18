@@ -149,8 +149,8 @@ public class Main extends Controller {
                     break;
                 case 6:
                     if (int_option1 == 1) {
-                        System.out.println("write 1 for copy data into bbdd");
-                        System.out.println("write 2 for copy data into txt file");
+                        System.out.println("write 1 for copy data into txt file");
+                        System.out.println("write 2 for copy data into hibernate");
                         int_copyData = sc.nextInt();
                         DataManager acces = null;
 
@@ -169,7 +169,7 @@ public class Main extends Controller {
 
                     } else if (int_option1 == 2) {
                         System.out.println("write 1 for copy data into bbdd");
-                        System.out.println("write 2 for copy data into txt file");
+                        System.out.println("write 2 for copy data into hibernate");
                         int_copyData = sc.nextInt();
                         DataManager acces = null;
 

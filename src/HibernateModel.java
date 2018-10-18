@@ -31,10 +31,21 @@ public class HibernateModel implements DataManager {
 
     @Override
     public void addEntity(Entity entitie) throws FileNotFoundException, IOException {
+        Entity hibernateEntity = new Entity();
+        try{
+            hibernateEntity =(Entity) session.get(Entity.class,entitie.getStr_mid());
+        }
+        catch (Exception e){
+
+        }
+        if(hibernateEntity == null){
         session.beginTransaction();
         session.save(entitie);
         session.getTransaction().commit();
         System.out.println("insert do it!");
+        }else{
+            System.out.println("ese id ya existe");
+        }
     }
 
     @Override
