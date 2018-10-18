@@ -181,27 +181,9 @@ public class FileManagerModel implements DataManager {
         }
         b.close();
     }
-    @Override
-    public void addAllEntities(DataManager acces) {
 
-        HashMap<String, Entity> hm_entities = new  HashMap<String, Entity>();
-        try {
-            hm_entities = saveEntities();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        for (Map.Entry<String, Entity> entry : hm_entities.entrySet()) {
-            String k = entry.getKey();
-            Entity v = entry.getValue();
-            try {
-                acces.addEntity(hm_entities.get(k));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
     @Override
-    public void addAllCurses(DataManager acces) {
+    public void addAll(DataManager acces) {
         HashMap<Integer, Curse> hm_curses = new  HashMap<Integer, Curse>();
         try {
             hm_curses = saveCurses();
@@ -217,8 +199,23 @@ public class FileManagerModel implements DataManager {
                 e.printStackTrace();
             }
         }
-    }
+        HashMap<String, Entity> hm_entities = new  HashMap<String, Entity>();
+        try {
+            hm_entities = saveEntities();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (Map.Entry<String, Entity> entry : hm_entities.entrySet()) {
+            String k = entry.getKey();
+            Entity v = entry.getValue();
+            try {
+                acces.addEntity(hm_entities.get(k));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
+    }
     public void showAllCurses() throws FileNotFoundException, IOException {
         String str_text;
         FileReader f = new FileReader("src/Curso.txt");

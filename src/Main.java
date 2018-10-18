@@ -15,7 +15,7 @@ public class Main extends Controller {
         Scanner sc = new Scanner(System.in);
         HashMap<String, Entity> hm_entities = new HashMap<String, Entity>();
         HashMap<Integer, Curse> hm_curses = new HashMap<Integer, Curse>();
-
+        int int_copyData;
         String str_id;
         String str_name;
         String str_first_characteristic;
@@ -149,40 +149,62 @@ public class Main extends Controller {
                     break;
                 case 6:
                     if (int_option1 == 1) {
-                        DataManager acces = new FileManagerModel();
-                        controller.getAcces().addAllCurses(acces);
-                        controller.getAcces().addAllEntities(acces);
-                        System.out.println("data saved into file ");
+                        System.out.println("write 1 for copy data into bbdd");
+                        System.out.println("write 2 for copy data into txt file");
+                        int_copyData = sc.nextInt();
+                        DataManager acces = null;
 
-                        acces = new HibernateModel();
-                        controller.getAcces().addAllCurses(acces);
-                        controller.getAcces().addAllEntities(acces);
-                        System.out.println("data saved into hibernate bbdd");
+                        switch (int_copyData) {
+
+                            case 1:
+                                acces =  new FileManagerModel();
+                                break;
+                            case 2:
+                                acces = new HibernateModel();
+                                break;
+                            default:
+                        }
+                        controller.getAcces().addAll(acces);
+                        System.out.println("data saved into datacces selected");
+
                     } else if (int_option1 == 2) {
-                        DataManager acces = new BbddModel();
-                        controller.getAcces().addAllCurses(acces);
-                        controller.getAcces().addAllEntities(acces);
-                        System.out.println("data saved into bbdd");
+                        System.out.println("write 1 for copy data into bbdd");
+                        System.out.println("write 2 for copy data into txt file");
+                        int_copyData = sc.nextInt();
+                        DataManager acces = null;
 
-                        acces = new HibernateModel();
-                        controller.getAcces().addAllCurses(acces);
-                        controller.getAcces().addAllEntities(acces);
-                        System.out.println("data saved into hibernate bbdd");
+                        switch (int_copyData) {
+
+                            case 1:
+                                acces = new BbddModel();
+                                break;
+                            case 2:
+                                acces = new HibernateModel();
+                                break;
+                            default:
+                        }
+                        controller.getAcces().addAll(acces);
+                        System.out.println("data saved into datacces selected");
                     } else if (int_option1 == 3) {
-                        DataManager acces = new BbddModel();
-                        controller.getAcces().addAllCurses(acces);
-                        controller.getAcces().addAllEntities(acces);
-                        System.out.println("data saved into bbdd");
+                        System.out.println("write 1 for copy data into bbdd");
+                        System.out.println("write 2 for copy data into txt file");
+                        int_copyData = sc.nextInt();
+                        DataManager acces = null;
 
-                        acces = new FileManagerModel();
-                        controller.getAcces().addAllCurses(acces);
-                        controller.getAcces().addAllEntities(acces);
-                        System.out.println("data saved into file ");
+                        switch (int_copyData) {
 
+                            case 1:
+                                acces = new BbddModel();
+                                break;
+                            case 2:
+                                acces = new FileManagerModel();
+                                break;
+                            default:
+                        }
+                        controller.getAcces().addAll(acces);
+                        System.out.println("data saved into datacces selected");
                     }
-
-
-                    break;
+                 break;
 
                 case 7:
                     int_close = 0;

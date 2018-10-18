@@ -39,31 +39,23 @@ public class HibernateModel implements DataManager {
 
     @Override
     public void addCurse(Curse curse) throws FileNotFoundException, IOException {
+        Curse hibernateCurse = new Curse();
+        try{
+           hibernateCurse =(Curse) session.get(Curse.class,curse.getInt_id());
+        }
+        catch (Exception e){
+
+        }
+        if(hibernateCurse == null){
         session.beginTransaction();
         session.save(curse);
         session.getTransaction().commit();
-        System.out.println("insert do it!");
-    }
-    @Override
-    public void addAllEntities(DataManager acces) {
-        HashMap<String, Entity> hm_entities = new  HashMap<String, Entity>();
-        try {
-            hm_entities = saveEntities();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        for (Map.Entry<String, Entity> entry : hm_entities.entrySet()) {
-            String k = entry.getKey();
-            Entity v = entry.getValue();
-            try {
-                acces.addEntity(hm_entities.get(k));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        System.out.println("insert do it!");}else{
+            System.out.println("ese id ya existe");
         }
     }
     @Override
-    public void addAllCurses(DataManager acces) {
+    public void addAll(DataManager acces) {
         HashMap<Integer, Curse> hm_curses = new  HashMap<Integer, Curse>();
         try {
             hm_curses = saveCurses();
@@ -79,8 +71,23 @@ public class HibernateModel implements DataManager {
                 e.printStackTrace();
             }
         }
-    }
+        HashMap<String, Entity> hm_entities = new  HashMap<String, Entity>();
+        try {
+            hm_entities = saveEntities();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (Map.Entry<String, Entity> entry : hm_entities.entrySet()) {
+            String k = entry.getKey();
+            Entity v = entry.getValue();
+            try {
+                acces.addEntity(hm_entities.get(k));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
+    }
     @Override
     public void showAllCurses() throws FileNotFoundException, IOException {
         System.out.println("Consultando cursos");

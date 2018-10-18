@@ -211,21 +211,7 @@ public class BbddModel implements DataManager {
     }
 
     @Override
-    public void addAllEntities(DataManager acces) {
-        HashMap<String, Entity> hm_entities = new  HashMap<String, Entity>();
-        hm_entities = saveEntities();
-        for (Map.Entry<String, Entity> entry : hm_entities.entrySet()) {
-            String k = entry.getKey();
-            Entity v = entry.getValue();
-            try {
-               acces.addEntity(hm_entities.get(k));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    @Override
-    public void addAllCurses(DataManager acces) {
+    public void addAll(DataManager acces) {
         HashMap<Integer, Curse> hm_curses = new  HashMap<Integer, Curse>();
         hm_curses = saveCurses();
         for (Map.Entry<Integer, Curse> entry : hm_curses.entrySet()) {
@@ -237,6 +223,18 @@ public class BbddModel implements DataManager {
                 e.printStackTrace();
             }
         }
+        HashMap<String, Entity> hm_entities = new  HashMap<String, Entity>();
+        hm_entities = saveEntities();
+        for (Map.Entry<String, Entity> entry : hm_entities.entrySet()) {
+            String k = entry.getKey();
+            Entity v = entry.getValue();
+            try {
+                acces.addEntity(hm_entities.get(k));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     public void showAllCurses() throws FileNotFoundException, IOException {
