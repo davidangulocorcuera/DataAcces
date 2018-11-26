@@ -9,5 +9,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="module" module-name="AccesoDatos/src" exported="" scope="RUNTIME" />
     <orderEntry type="library" name="HibernateLib" level="project" />
+    <orderEntry type="library" name="json_simple-1.1" level="project" />
   </component>
 </module>
