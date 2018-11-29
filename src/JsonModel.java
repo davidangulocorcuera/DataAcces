@@ -85,11 +85,11 @@ public class JsonModel implements DataManager {
                         for (int i = 0; i < array.size(); i++) {
                             JSONObject row = (JSONObject) array.get(i);
 
-                            str_mid = row.get("str_mid").toString();
-                            str_mname = row.get("str_mname").toString();
-                            str_mfirst_characteristic = row.get("str_mfirst_characteristic").toString();
-                            str_msecond_characteristic = row.get("str_msecond_characteristic").toString();
-                            str_mthird_characteristic = row.get("str_mthird_characteristic").toString();
+                            String   str_mid = row.get("str_mid").toString();
+                            String  str_mname = row.get("str_mname").toString();
+                            String  str_mfirst_characteristic = row.get("str_mfirst_characteristic").toString();
+                            String  str_msecond_characteristic = row.get("str_msecond_characteristic").toString();
+                            String str_mthird_characteristic = row.get("str_mthird_characteristic").toString();
                             curse = saveCurses().get(Integer.parseInt(row.get("curso").toString()));
 
                             newEntity = new Entity(str_mid,str_mname,str_mfirst_characteristic,str_msecond_characteristic,str_mthird_characteristic,curse);
@@ -114,6 +114,7 @@ public class JsonModel implements DataManager {
             System.exit(-1);
         }
         System.out.print(hm_entities.get("1").getCurse().getStr_mname());
+        System.out.print(hm_entities.get("1").getStr_mname());
         return hm_entities;
     }
 
@@ -144,11 +145,11 @@ public class JsonModel implements DataManager {
                     for (int i = 0; i < array.size(); i++) {
                         JSONObject row = (JSONObject) array.get(i);
 
-                        int_id =  Integer.parseInt(row.get("int_id").toString());
-                        str_mname = row.get("str_mname").toString();
-                        str_mfirst_characteristic = row.get("str_mfirst_characteristic").toString();
-                        str_msecond_characteristic = row.get("str_msecond_characteristic").toString();
-                        str_mthird_characteristic = row.get("str_mthird_characteristic").toString();
+                       int int_id =  Integer.parseInt(row.get("int_id").toString());
+                        String str_mname = row.get("str_mname").toString();
+                        String  str_mfirst_characteristic = row.get("str_mfirst_characteristic").toString();
+                        String str_msecond_characteristic = row.get("str_msecond_characteristic").toString();
+                        String str_mthird_characteristic = row.get("str_mthird_characteristic").toString();
 
 
                         newCurse = new Curse(int_id,str_mname,str_mfirst_characteristic,str_msecond_characteristic,str_mthird_characteristic);
