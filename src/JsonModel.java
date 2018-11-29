@@ -7,7 +7,13 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class JsonModel implements DataManager {
-
+    private Entity newEntity;
+    private String str_mid;
+    private String str_mname;
+    private String str_mfirst_characteristic;
+    private String str_msecond_characteristic;
+    private String str_mthird_characteristic;
+    Curse curse;
     ApiRequests encargadoPeticiones;
     private String SERVER_PATH, GET_ENTITY, SET_ENTITY; // Datos de la conexion
 
@@ -56,46 +62,23 @@ public class JsonModel implements DataManager {
 
         try {
 
-            System.out.println("---------- Leemos datos de JSON --------------------");
-
-            System.out.println("Lanzamos peticion JSON para jugadores");
-
             String url = SERVER_PATH + GET_ENTITY; // Sacadas de configuracion
             System.out.println("La url a la que lanzamos la petición es " + url); // Traza para pruebas
 
             String response = encargadoPeticiones.getRequest(url);
 
-            System.out.println(response); // Traza para pruebas
 
 
             // Parseamos la respuesta y la convertimos en un JSONObject
             JSONObject respuesta = (JSONObject) JSONValue.parse(response);
 
-
-            if (respuesta == null) { // Si hay algún error de parseo (json
-                // incorrecto porque hay algún caracter
-                // raro, etc.) la respuesta será null
-                System.out.println("El json recibido no es correcto. Finaliza la ejecución");
-                System.exit(-1);
-            } else { // El JSON recibido es correcto
-                // Sera "ok" si todo ha ido bien o "error" si hay algún problema
+             // El JSON recibido es correcto
                 String estado = (String) respuesta.get("estado");
                 // Si ok, obtenemos array de jugadores para recorrer y generar hashmap
                 if (estado.equals("ok")) {
                     JSONArray array = (JSONArray) respuesta.get("Personas");
 
                     if (array.size() > 0) {
-
-                        // Declaramos variables
-                        Entity newEntity;
-                        String str_mid;
-                        String str_mname;
-                        String str_mfirst_characteristic;
-                        String str_msecond_characteristic;
-                        String str_mthird_characteristic;
-                        Curse curse;
-                        Curse int_idCurse;
-
                         for (int i = 0; i < array.size(); i++) {
                             JSONObject row = (JSONObject) array.get(i);
 
@@ -112,25 +95,13 @@ public class JsonModel implements DataManager {
                             hm_entities.put(str_mid, newEntity);
                         }
 
-                        System.out.println("Acceso JSON Remoto - Leidos datos correctamente y generado hashmap");
+                        System.out.println("generado hashmap");
                         System.out.println();
 
-                    } else { // El array de jugadores está vacío
-                        System.out.println("Acceso JSON Remoto - No hay datos que tratar");
-                        System.out.println();
                     }
 
-                } else { // Hemos recibido el json pero en el estado se nos
-                    // indica que ha habido algún error
-
-                    System.out.println("Ha ocurrido un error en la busqueda de datos");
-                    System.out.println("Error: " + (String) respuesta.get("error"));
-                    System.out.println("Consulta: " + (String) respuesta.get("query"));
-
-                    System.exit(-1);
-
                 }
-            }
+
 
         } catch (Exception e) {
             System.out.println("Ha ocurrido un error en la busqueda de datos");
