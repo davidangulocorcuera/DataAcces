@@ -90,7 +90,7 @@ public class JsonModel implements DataManager {
                             str_mfirst_characteristic = row.get("str_mfirst_characteristic").toString();
                             str_msecond_characteristic = row.get("str_msecond_characteristic").toString();
                             str_mthird_characteristic = row.get("str_mthird_characteristic").toString();
-
+                            curse = saveCurses().get(Integer.parseInt(row.get("curso").toString()));
 
                             newEntity = new Entity(str_mid,str_mname,str_mfirst_characteristic,str_msecond_characteristic,str_mthird_characteristic,curse);
 
@@ -98,7 +98,7 @@ public class JsonModel implements DataManager {
                             hm_entities.put(str_mid, newEntity);
                         }
 
-                        System.out.println("generado hashmap");
+                        System.out.println("generado hashmap de entidades");
                         System.out.println();
 
                     }
@@ -113,7 +113,7 @@ public class JsonModel implements DataManager {
 
             System.exit(-1);
         }
-
+        System.out.print(hm_entities.get("1").getCurse().getStr_mname());
         return hm_entities;
     }
 
@@ -157,7 +157,7 @@ public class JsonModel implements DataManager {
                         hm_curses.put(int_id, newCurse);
                     }
 
-                    System.out.println("generado hashmap");
+                    System.out.println("generado hashmap de cursos");
                     System.out.println();
 
                 }
