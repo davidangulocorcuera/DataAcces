@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 public class JsonModel implements DataManager {
     private Entity newEntity;
+    private Curse newCurse;
     private String str_mid;
     private String str_mname;
     private String str_mfirst_characteristic;
@@ -15,7 +16,8 @@ public class JsonModel implements DataManager {
     private String str_mthird_characteristic;
     Curse curse;
     ApiRequests encargadoPeticiones;
-    private String SERVER_PATH, GET_ENTITY, SET_ENTITY; // Datos de la conexion
+    private String SERVER_PATH, GET_ENTITY,GET_CURSE, SET_ENTITY; // Datos de la conexion
+    private int int_id;
 
     public JsonModel() {
         char c;
@@ -24,6 +26,7 @@ public class JsonModel implements DataManager {
 
         SERVER_PATH = "http://localhost/DavidAngulo/crudJson/";
         GET_ENTITY = "readEntity.php";
+        GET_CURSE = "readCurse.php";
         SET_ENTITY = "writeEntity.php";
 
     }
@@ -87,7 +90,7 @@ public class JsonModel implements DataManager {
                             str_mfirst_characteristic = row.get("str_mfirst_characteristic").toString();
                             str_msecond_characteristic = row.get("str_msecond_characteristic").toString();
                             str_mthird_characteristic = row.get("str_mthird_characteristic").toString();
-                            curse = (Curse) row.get("id_curse");
+
 
                             newEntity = new Entity(str_mid,str_mname,str_mfirst_characteristic,str_msecond_characteristic,str_mthird_characteristic,curse);
 
@@ -116,7 +119,61 @@ public class JsonModel implements DataManager {
 
     @Override
     public HashMap<Integer, Curse> saveCurses() throws IOException {
-        return null;
+        HashMap<Integer, Curse> hm_curses = new HashMap <Integer, Curse>();
+
+
+        try {
+
+            String url = SERVER_PATH + GET_CURSE; // Sacadas de configuracion
+            System.out.println("La url a la que lanzamos la petición es " + url); // Traza para pruebas
+
+            String response = encargadoPeticiones.getRequest(url);
+
+
+
+            // Parseamos la respuesta y la convertimos en un JSONObject
+            JSONObject respuesta = (JSONObject) JSONValue.parse(response);
+
+            // El JSON recibido es correcto
+            String estado = (String) respuesta.get("estado");
+            // Si ok, obtenemos array de jugadores para recorrer y generar hashmap
+            if (estado.equals("ok")) {
+                JSONArray array = (JSONArray) respuesta.get("cursos");
+
+                if (array.size() > 0) {
+                    for (int i = 0; i < array.size(); i++) {
+                        JSONObject row = (JSONObject) array.get(i);
+
+                        int_id =  Integer.parseInt(row.get("int_id").toString());
+                        str_mname = row.get("str_mname").toString();
+                        str_mfirst_characteristic = row.get("str_mfirst_characteristic").toString();
+                        str_msecond_characteristic = row.get("str_msecond_characteristic").toString();
+                        str_mthird_characteristic = row.get("str_mthird_characteristic").toString();
+
+
+                        newCurse = new Curse(int_id,str_mname,str_mfirst_characteristic,str_msecond_characteristic,str_mthird_characteristic);
+
+
+                        hm_curses.put(int_id, newCurse);
+                    }
+
+                    System.out.println("generado hashmap");
+                    System.out.println();
+
+                }
+
+            }
+
+
+        } catch (Exception e) {
+            System.out.println("Ha ocurrido un error en la busqueda de datos");
+
+            e.printStackTrace();
+
+            System.exit(-1);
+        }
+
+        return hm_curses;
     }
 
     @Override
