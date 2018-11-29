@@ -2,27 +2,57 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 
-public class AccesoJsonRemoto {
+public class JsonModel implements DataManager {
 
     ApiRequests encargadoPeticiones;
     private String SERVER_PATH, GET_ENTITY, SET_ENTITY; // Datos de la conexion
 
-    public AccesoJsonRemoto() {
+    public JsonModel() {
         char c;
 
         encargadoPeticiones = new ApiRequests();
 
-        SERVER_PATH = "http://localhost/aplicacionjaime/";
-        GET_ENTITY = "readEntities.php";
+        SERVER_PATH = "http://localhost/DavidAngulo/crudJson/";
+        GET_ENTITY = "readEntity.php";
         SET_ENTITY = "writeEntity.php";
 
     }
 
-    public HashMap<String, Entity> lee() {
 
-        HashMap<String, Entity> auxhm = new HashMap <String, Entity>();
+
+    @Override
+    public void addEntity(Entity entitie) throws FileNotFoundException, IOException {
+
+    }
+
+    @Override
+    public void addCurse(Curse curse) throws FileNotFoundException, IOException {
+
+    }
+
+    @Override
+    public void showAll() throws FileNotFoundException, IOException {
+
+    }
+
+    @Override
+    public void showAllCurses() throws FileNotFoundException, IOException {
+
+    }
+
+    @Override
+    public void deleteOne(int id) {
+
+    }
+
+    @Override
+    public HashMap<String, Entity> saveEntities() throws FileNotFoundException, IOException {
+        HashMap<String, Entity> hm_entities = new HashMap <String, Entity>();
+
 
         try {
 
@@ -31,17 +61,16 @@ public class AccesoJsonRemoto {
             System.out.println("Lanzamos peticion JSON para jugadores");
 
             String url = SERVER_PATH + GET_ENTITY; // Sacadas de configuracion
-
-            // System.out.println("La url a la que lanzamos la petición es " +
-            // url); // Traza para pruebas
+            System.out.println("La url a la que lanzamos la petición es " + url); // Traza para pruebas
 
             String response = encargadoPeticiones.getRequest(url);
 
             System.out.println(response); // Traza para pruebas
-            System.exit(0);
+
 
             // Parseamos la respuesta y la convertimos en un JSONObject
-            JSONObject respuesta = (JSONObject) JSONValue.parse(response.toString());
+            JSONObject respuesta = (JSONObject) JSONValue.parse(response);
+
 
             if (respuesta == null) { // Si hay algún error de parseo (json
                 // incorrecto porque hay algún caracter
@@ -53,34 +82,34 @@ public class AccesoJsonRemoto {
                 String estado = (String) respuesta.get("estado");
                 // Si ok, obtenemos array de jugadores para recorrer y generar hashmap
                 if (estado.equals("ok")) {
-                    JSONArray array = (JSONArray) respuesta.get("jugadores");
+                    JSONArray array = (JSONArray) respuesta.get("Personas");
 
                     if (array.size() > 0) {
 
                         // Declaramos variables
                         Entity newEntity;
-                         String str_mid;
-                         String str_mname;
-                         String str_mfirst_characteristic;
-                         String str_msecond_characteristic;
-                         String str_mthird_characteristic;
-                         Curse curse;
-                         Curse int_idCurse;
+                        String str_mid;
+                        String str_mname;
+                        String str_mfirst_characteristic;
+                        String str_msecond_characteristic;
+                        String str_mthird_characteristic;
+                        Curse curse;
+                        Curse int_idCurse;
 
                         for (int i = 0; i < array.size(); i++) {
                             JSONObject row = (JSONObject) array.get(i);
 
-                        str_mid = row.get("id").toString();
-                        str_mname = row.get("name").toString();
-                        str_mfirst_characteristic = row.get("first_characteristic").toString();
-                        str_msecond_characteristic = row.get("second_characteristic").toString();
-                        str_mthird_characteristic = row.get("third_characteristic").toString();
-                        curse = (Curse) row.get("id_curse");
+                            str_mid = row.get("str_mid").toString();
+                            str_mname = row.get("str_mname").toString();
+                            str_mfirst_characteristic = row.get("str_mfirst_characteristic").toString();
+                            str_msecond_characteristic = row.get("str_msecond_characteristic").toString();
+                            str_mthird_characteristic = row.get("str_mthird_characteristic").toString();
+                            curse = (Curse) row.get("id_curse");
 
-                        newEntity = new Entity(str_mid,str_mname,str_mfirst_characteristic,str_msecond_characteristic,str_mthird_characteristic,curse);
+                            newEntity = new Entity(str_mid,str_mname,str_mfirst_characteristic,str_msecond_characteristic,str_mthird_characteristic,curse);
 
 
-                            auxhm.put(str_mid, newEntity);
+                            hm_entities.put(str_mid, newEntity);
                         }
 
                         System.out.println("Acceso JSON Remoto - Leidos datos correctamente y generado hashmap");
@@ -111,7 +140,17 @@ public class AccesoJsonRemoto {
             System.exit(-1);
         }
 
-        return auxhm;
+        return hm_entities;
+    }
+
+    @Override
+    public HashMap<Integer, Curse> saveCurses() throws IOException {
+        return null;
+    }
+
+    @Override
+    public void addAll(DataManager acces) {
+
     }
 
   /*  public void anadirJugadorJSON(Jugador auxJugador) {
