@@ -6,15 +6,7 @@ Entity {
     private String str_msecond_characteristic;
     private String str_mthird_characteristic;
     private Curse curse;
-    private Curse int_idCurse;
 
-    public Curse getInt_idCurse() {
-        return int_idCurse;
-    }
-
-    public void setInt_idCurse(Curse int_idCurse) {
-        this.int_idCurse = int_idCurse;
-    }
 
 
     public Entity() {

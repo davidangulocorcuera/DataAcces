@@ -9,15 +9,9 @@ import java.util.HashMap;
 public class JsonModel implements DataManager {
     private Entity newEntity;
     private Curse newCurse;
-    private String str_mid;
-    private String str_mname;
-    private String str_mfirst_characteristic;
-    private String str_msecond_characteristic;
-    private String str_mthird_characteristic;
     Curse curse;
     ApiRequests encargadoPeticiones;
     private String SERVER_PATH, GET_ENTITY,GET_CURSE, SET_ENTITY; // Datos de la conexion
-    private int int_id;
 
     public JsonModel() {
         char c;
@@ -34,8 +28,81 @@ public class JsonModel implements DataManager {
 
 
     @Override
-    public void addEntity(Entity entitie) throws FileNotFoundException, IOException {
+    public void addEntity(Entity auxEntity) throws FileNotFoundException, IOException {
+        try {
+            JSONObject objJEntity = new JSONObject();
+            JSONObject objPeticion = new JSONObject();
 
+            objJEntity.put("id", auxEntity.getStr_mid());
+            objJEntity.put("name", auxEntity.getStr_mname());
+            objJEntity.put("first_characteristic", auxEntity.getStr_mfirst_characteristic());
+            objJEntity.put("second_characteristic", auxEntity.getStr_msecond_characteristic());
+            objJEntity.put("third_characteristic", auxEntity.getStr_mthird_characteristic());
+            objJEntity.put("id_curse", auxEntity.getCurse().getInt_id());
+
+
+
+            // Tenemos el jugador como objeto JSON. Lo añadimos a una peticion
+            // Lo transformamos a string y llamamos al
+            // encargado de peticiones para que lo envie al PHP
+
+            objPeticion.put("peticion", "add");
+            objPeticion.put("jugadorAnnadir", objJEntity);
+
+            String json = objPeticion.toJSONString();
+
+            System.out.println("Lanzamos peticion JSON para almacenar un jugador");
+
+            String url = SERVER_PATH + SET_ENTITY;
+
+            System.out.println("La url a la que lanzamos la petición es " + url);
+            System.out.println("El json que enviamos es: ");
+            System.out.println(json);
+            //System.exit(-1);
+
+            String response = encargadoPeticiones.postRequest(url, json);
+
+            System.out.println("El json que recibimos es: ");
+
+            System.out.println(response); // Traza para pruebas
+            System.exit(-1);
+
+            // Parseamos la respuesta y la convertimos en un JSONObject
+
+
+            JSONObject respuesta = (JSONObject) JSONValue.parse(response.toString());
+
+            if (respuesta == null) { // Si hay algún error de parseo (json
+                // incorrecto porque hay algún caracter
+                // raro, etc.) la respuesta será null
+                System.out.println("El json recibido no es correcto. Finaliza la ejecución");
+                System.exit(-1);
+            } else { // El JSON recibido es correcto
+
+                // Sera "ok" si todo ha ido bien o "error" si hay algún problema
+                String estado = (String) respuesta.get("estado");
+                if (estado.equals("ok")) {
+
+                    System.out.println("Almacenado jugador enviado por JSON Remoto");
+
+                } else { // Hemos recibido el json pero en el estado se nos
+                    // indica que ha habido algún error
+
+                    System.out.println("Acceso JSON REMOTO - Error al almacenar los datos");
+                    System.out.println("Error: " + (String) respuesta.get("error"));
+                    System.out.println("Consulta: " + (String) respuesta.get("query"));
+
+                    System.exit(-1);
+
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(
+                    "Excepcion desconocida. Traza de error comentada en el método 'annadirJugador' de la clase JSON REMOTO");
+            // e.printStackTrace();
+            System.out.println("Fin ejecución");
+            System.exit(-1);
+        }
     }
 
     @Override
@@ -113,8 +180,7 @@ public class JsonModel implements DataManager {
 
             System.exit(-1);
         }
-        System.out.print(hm_entities.get("1").getCurse().getStr_mname());
-        System.out.print(hm_entities.get("1").getStr_mname());
+
         return hm_entities;
     }
 
@@ -182,78 +248,10 @@ public class JsonModel implements DataManager {
 
     }
 
-  /*  public void anadirJugadorJSON(Jugador auxJugador) {
-
-        try {
-            JSONObject objJugador = new JSONObject();
-            JSONObject objPeticion = new JSONObject();
-
-            objJugador.put("nombre", auxJugador.getNombre());
-            objJugador.put("equipo", auxJugador.getEquipo());
-            objJugador.put("numero", auxJugador.getNumero());
-
-            // Tenemos el jugador como objeto JSON. Lo añadimos a una peticion
-            // Lo transformamos a string y llamamos al
-            // encargado de peticiones para que lo envie al PHP
-
-            objPeticion.put("peticion", "add");
-            objPeticion.put("jugadorAnnadir", objJugador);
-
-            String json = objPeticion.toJSONString();
-
-            System.out.println("Lanzamos peticion JSON para almacenar un jugador");
-
-            String url = SERVER_PATH + SET_ENTITY;
-
-            System.out.println("La url a la que lanzamos la petición es " + url);
-            System.out.println("El json que enviamos es: ");
-            System.out.println(json);
-            //System.exit(-1);
-
-            String response = encargadoPeticiones.postRequest(url, json);
-
-            System.out.println("El json que recibimos es: ");
-
-            System.out.println(response); // Traza para pruebas
-            System.exit(-1);
-
-            // Parseamos la respuesta y la convertimos en un JSONObject
+    public void anadirJugadorJSON(Entity auxEntity) {
 
 
-            JSONObject respuesta = (JSONObject) JSONValue.parse(response.toString());
-
-            if (respuesta == null) { // Si hay algún error de parseo (json
-                // incorrecto porque hay algún caracter
-                // raro, etc.) la respuesta será null
-                System.out.println("El json recibido no es correcto. Finaliza la ejecución");
-                System.exit(-1);
-            } else { // El JSON recibido es correcto
-
-                // Sera "ok" si todo ha ido bien o "error" si hay algún problema
-                String estado = (String) respuesta.get("estado");
-                if (estado.equals("ok")) {
-
-                    System.out.println("Almacenado jugador enviado por JSON Remoto");
-
-                } else { // Hemos recibido el json pero en el estado se nos
-                    // indica que ha habido algún error
-
-                    System.out.println("Acceso JSON REMOTO - Error al almacenar los datos");
-                    System.out.println("Error: " + (String) respuesta.get("error"));
-                    System.out.println("Consulta: " + (String) respuesta.get("query"));
-
-                    System.exit(-1);
-
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(
-                    "Excepcion desconocida. Traza de error comentada en el método 'annadirJugador' de la clase JSON REMOTO");
-            // e.printStackTrace();
-            System.out.println("Fin ejecución");
-            System.exit(-1);
-            }
-        }*/
+        }
 
     }
 
