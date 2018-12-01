@@ -33,11 +33,11 @@ public class JsonModel implements DataManager {
             JSONObject objJEntity = new JSONObject();
             JSONObject objPeticion = new JSONObject();
 
-            objJEntity.put("id", auxEntity.getStr_mid());
-            objJEntity.put("name", auxEntity.getStr_mname());
-            objJEntity.put("first_characteristic", auxEntity.getStr_mfirst_characteristic());
-            objJEntity.put("second_characteristic", auxEntity.getStr_msecond_characteristic());
-            objJEntity.put("third_characteristic", auxEntity.getStr_mthird_characteristic());
+            objJEntity.put("str_mid", auxEntity.getStr_mid());
+            objJEntity.put("str_mname", auxEntity.getStr_mname());
+            objJEntity.put("str_mfirst_characteristic", auxEntity.getStr_mfirst_characteristic());
+            objJEntity.put("str_msecond_characteristic", auxEntity.getStr_msecond_characteristic());
+            objJEntity.put("str_mthird_characteristic", auxEntity.getStr_mthird_characteristic());
             objJEntity.put("id_curse", auxEntity.getCurse().getInt_id());
 
 
@@ -47,7 +47,7 @@ public class JsonModel implements DataManager {
             // encargado de peticiones para que lo envie al PHP
 
             objPeticion.put("peticion", "add");
-            objPeticion.put("jugadorAnnadir", objJEntity);
+            objPeticion.put("entity", objJEntity);
 
             String json = objPeticion.toJSONString();
 
