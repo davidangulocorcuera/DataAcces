@@ -155,6 +155,8 @@ public class Main extends Controller {
                     if (int_option1 == 1) {
                         System.out.println("write 1 for copy data into txt file");
                         System.out.println("write 2 for copy data into hibernate");
+                        System.out.println("write 3 for copy data into Json");
+
                         int_copyData = sc.nextInt();
                         DataManager acces = null;
 
@@ -166,6 +168,9 @@ public class Main extends Controller {
                             case 2:
                                 acces = new HibernateModel();
                                 break;
+                            case 3:
+                                acces = new JsonModel();
+                                break;
                             default:
                         }
                         controller.getAcces().addAll(acces);
@@ -174,6 +179,8 @@ public class Main extends Controller {
                     } else if (int_option1 == 2) {
                         System.out.println("write 1 for copy data into bbdd");
                         System.out.println("write 2 for copy data into hibernate");
+                        System.out.println("write 3 for copy data into Json");
+
                         int_copyData = sc.nextInt();
                         DataManager acces = null;
 
@@ -185,6 +192,9 @@ public class Main extends Controller {
                             case 2:
                                 acces = new HibernateModel();
                                 break;
+                            case 3:
+                                acces = new JsonModel();
+                                break;
                             default:
                         }
                         controller.getAcces().addAll(acces);
@@ -192,6 +202,8 @@ public class Main extends Controller {
                     } else if (int_option1 == 3) {
                         System.out.println("write 1 for copy data into bbdd");
                         System.out.println("write 2 for copy data into txt file");
+                        System.out.println("write 3 for copy data into Json");
+
                         int_copyData = sc.nextInt();
                         DataManager acces = null;
 
@@ -203,11 +215,16 @@ public class Main extends Controller {
                             case 2:
                                 acces = new FileManagerModel();
                                 break;
+                            case 3:
+                                acces = new JsonModel();
+                                break;
                             default:
                         }
                         controller.getAcces().addAll(acces);
                         System.out.println("data saved into datacces selected");
+
                     }
+
                  break;
 
                 case 7:

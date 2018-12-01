@@ -5,6 +5,7 @@ import org.json.simple.JSONValue;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 public class JsonModel implements DataManager {
     private Entity newEntity;
@@ -257,7 +258,36 @@ public class JsonModel implements DataManager {
 
     @Override
     public void addAll(DataManager acces) {
-
+        HashMap<Integer, Curse> hm_curses = new  HashMap<Integer, Curse>();
+        try {
+            hm_curses = saveCurses();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (Map.Entry<Integer, Curse> entry : hm_curses.entrySet()) {
+            Integer k = entry.getKey();
+            Curse v = entry.getValue();
+            try {
+                acces.addCurse(hm_curses.get(k));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        HashMap<String, Entity> hm_entities = new  HashMap<String, Entity>();
+        try {
+            hm_entities = saveEntities();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (Map.Entry<String, Entity> entry : hm_entities.entrySet()) {
+            String k = entry.getKey();
+            Entity v = entry.getValue();
+            try {
+                acces.addEntity(hm_entities.get(k));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void anadirJugadorJSON(Entity auxEntity) {
