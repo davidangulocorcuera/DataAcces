@@ -63,40 +63,7 @@ public class JsonModel implements DataManager {
 
             String response = encargadoPeticiones.postRequest(url, json);
 
-            System.out.println("El json que recibimos es: ");
 
-            System.out.println(response); // Traza para pruebas
-            System.exit(-1);
-
-            // Parseamos la respuesta y la convertimos en un JSONObject
-
-
-            JSONObject respuesta = (JSONObject) JSONValue.parse(response.toString());
-
-            if (respuesta == null) { // Si hay algún error de parseo (json
-                // incorrecto porque hay algún caracter
-                // raro, etc.) la respuesta será null
-                System.out.println("El json recibido no es correcto. Finaliza la ejecución");
-                System.exit(-1);
-            } else { // El JSON recibido es correcto
-
-                // Sera "ok" si todo ha ido bien o "error" si hay algún problema
-                String estado = (String) respuesta.get("estado");
-                if (estado.equals("ok")) {
-
-                    System.out.println("Almacenado jugador enviado por JSON Remoto");
-
-                } else { // Hemos recibido el json pero en el estado se nos
-                    // indica que ha habido algún error
-
-                    System.out.println("Acceso JSON REMOTO - Error al almacenar los datos");
-                    System.out.println("Error: " + (String) respuesta.get("error"));
-                    System.out.println("Consulta: " + (String) respuesta.get("query"));
-
-                    System.exit(-1);
-
-                }
-            }
         } catch (Exception e) {
             System.out.println(
                     "Excepcion desconocida. Traza de error comentada en el método 'annadirJugador' de la clase JSON REMOTO");
@@ -141,40 +108,11 @@ public class JsonModel implements DataManager {
 
             String response = encargadoPeticiones.postRequest(url, json);
 
-            System.out.println("El json que recibimos es: ");
-
-            System.out.println(response); // Traza para pruebas
-            System.exit(-1);
-
-            // Parseamos la respuesta y la convertimos en un JSONObject
 
 
-            JSONObject respuesta = (JSONObject) JSONValue.parse(response.toString());
 
-            if (respuesta == null) { // Si hay algún error de parseo (json
-                // incorrecto porque hay algún caracter
-                // raro, etc.) la respuesta será null
-                System.out.println("El json recibido no es correcto. Finaliza la ejecución");
-                System.exit(-1);
-            } else { // El JSON recibido es correcto
 
-                // Sera "ok" si todo ha ido bien o "error" si hay algún problema
-                String estado = (String) respuesta.get("estado");
-                if (estado.equals("ok")) {
 
-                    System.out.println("Almacenado jugador enviado por JSON Remoto");
-
-                } else { // Hemos recibido el json pero en el estado se nos
-                    // indica que ha habido algún error
-
-                    System.out.println("Acceso JSON REMOTO - Error al almacenar los datos");
-                    System.out.println("Error: " + (String) respuesta.get("error"));
-                    System.out.println("Consulta: " + (String) respuesta.get("query"));
-
-                    System.exit(-1);
-
-                }
-            }
         } catch (Exception e) {
             System.out.println(
                     "Excepcion desconocida. Traza de error comentada en el método 'annadirJugador' de la clase JSON REMOTO");

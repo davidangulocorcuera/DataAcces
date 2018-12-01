@@ -31,7 +31,7 @@ public class Main extends Controller {
             System.out.println("1 to acces into the bbdd if you use entities");
             System.out.println("2 to acces into the txt file if you use entities");
             System.out.println("3 to acces into the hibernate bbdd");
-            System.out.println("4 to acces into the hibernate bbdd");
+            System.out.println("4 to acces into the Json bbdd");
 
             int int_option1 = sc.nextInt();
             switch (int_option1) {
