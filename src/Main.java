@@ -198,7 +198,7 @@ public class Main extends Controller {
                             default:
                         }
                         controller.getAcces().addAll(acces);
-                        System.out.println("data saved into datacces selected");
+                        System.out.println("data saved into data access selected");
                     } else if (int_option1 == 3) {
                         System.out.println("write 1 for copy data into bbdd");
                         System.out.println("write 2 for copy data into txt file");
@@ -221,7 +221,32 @@ public class Main extends Controller {
                             default:
                         }
                         controller.getAcces().addAll(acces);
-                        System.out.println("data saved into datacces selected");
+                        System.out.println("data saved into data access selected");
+
+                    }
+                    else if (int_option1 == 4) {
+                        System.out.println("write 1 for copy data into bbdd");
+                        System.out.println("write 2 for copy data into txt file");
+                        System.out.println("write 3 for copy data into hibernate");
+
+                        int_copyData = sc.nextInt();
+                        DataManager acces = null;
+
+                        switch (int_copyData) {
+
+                            case 1:
+                                acces = new BbddModel();
+                                break;
+                            case 2:
+                                acces = new FileManagerModel();
+                                break;
+                            case 3:
+                                acces = new HibernateModel();
+                                break;
+                            default:
+                        }
+                        controller.getAcces().addAll(acces);
+                        System.out.println("data saved into data access selected");
 
                     }
 

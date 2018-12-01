@@ -12,7 +12,7 @@ public class JsonModel implements DataManager {
     private Curse newCurse;
     Curse curse;
     ApiRequests encargadoPeticiones;
-    private String SERVER_PATH, GET_ENTITY,GET_CURSE, SET_ENTITY,SET_CURSE; // Datos de la conexion
+    private String SERVER_PATH, GET_ENTITY, GET_CURSE, SET_ENTITY, SET_CURSE; // Datos de la conexion
 
     public JsonModel() {
         char c;
@@ -28,7 +28,6 @@ public class JsonModel implements DataManager {
     }
 
 
-
     @Override
     public void addEntity(Entity auxEntity) throws FileNotFoundException, IOException {
         try {
@@ -42,32 +41,18 @@ public class JsonModel implements DataManager {
             objJEntity.put("str_mthird_characteristic", auxEntity.getStr_mthird_characteristic());
             objJEntity.put("id_curse", auxEntity.getCurse().getInt_id());
 
-
-
-            // Tenemos el jugador como objeto JSON. Lo añadimos a una peticion
-            // Lo transformamos a string y llamamos al
-            // encargado de peticiones para que lo envie al PHP
-
             objPeticion.put("peticion", "add");
             objPeticion.put("entity", objJEntity);
 
             String json = objPeticion.toJSONString();
-
-            System.out.println("Lanzamos peticion JSON para almacenar un jugador");
-
             String url = SERVER_PATH + SET_ENTITY;
-
-            System.out.println("La url a la que lanzamos la petición es " + url);
-            System.out.println("El json que enviamos es: ");
-            System.out.println(json);
-            //System.exit(-1);
-
+            System.out.print("Insert hecho");
             String response = encargadoPeticiones.postRequest(url, json);
 
 
         } catch (Exception e) {
             System.out.println(
-                    "Excepcion desconocida. Traza de error comentada en el método 'annadirJugador' de la clase JSON REMOTO");
+                    "Excepcion desconocida.");
             // e.printStackTrace();
             System.out.println("Fin ejecución");
             System.exit(-1);
@@ -86,37 +71,17 @@ public class JsonModel implements DataManager {
             objJCurse.put("str_msecond_characteristic", auxCurse.getStr_msecond_characteristic());
             objJCurse.put("str_mthird_characteristic", auxCurse.getStr_mthird_characteristic());
 
-
-
-
-            // Tenemos el jugador como objeto JSON. Lo añadimos a una peticion
-            // Lo transformamos a string y llamamos al
-            // encargado de peticiones para que lo envie al PHP
-
             objPeticion.put("peticion", "add");
             objPeticion.put("curse", objJCurse);
 
             String json = objPeticion.toJSONString();
-
-            System.out.println("Lanzamos peticion JSON para almacenar un jugador");
-
             String url = SERVER_PATH + SET_CURSE;
-
-            System.out.println("La url a la que lanzamos la petición es " + url);
-            System.out.println("El json que enviamos es: ");
-            System.out.println(json);
-            //System.exit(-1);
-
             String response = encargadoPeticiones.postRequest(url, json);
-
-
-
-
-
+            System.out.print("Insert hecho");
 
         } catch (Exception e) {
             System.out.println(
-                    "Excepcion desconocida. Traza de error comentada en el método 'annadirJugador' de la clase JSON REMOTO");
+                    "Excepcion desconocida.");
             // e.printStackTrace();
             System.out.println("Fin ejecución");
             System.exit(-1);
@@ -125,12 +90,35 @@ public class JsonModel implements DataManager {
 
     @Override
     public void showAll() throws FileNotFoundException, IOException {
+        HashMap<String, Entity> hm_entities = saveEntities();
 
+        for (Map.Entry<String, Entity> entry : hm_entities.entrySet()) {
+            String k = entry.getKey();
+            Entity v = entry.getValue();
+            System.out.println("Nombre: " + hm_entities.get(k).getStr_mname());
+            System.out.println("Curso: " + hm_entities.get(k).getCurse().getStr_mname());
+            System.out.println("Primera caracteristica: " + hm_entities.get(k).getStr_mfirst_characteristic());
+            System.out.println("Segunda caracteristica: " + hm_entities.get(k).getStr_msecond_characteristic());
+            System.out.println("Tercera caracteristica: " + hm_entities.get(k).getStr_mthird_characteristic());
+            System.out.println("--------------");
+
+        }
     }
 
     @Override
     public void showAllCurses() throws FileNotFoundException, IOException {
+        HashMap<Integer, Curse> hm_curses = saveCurses();
 
+        for (Map.Entry<Integer, Curse> entry : hm_curses.entrySet()) {
+            Integer k = entry.getKey();
+            Curse v = entry.getValue();
+            System.out.println("Nombre: " + hm_curses.get(k).getStr_mname());
+            System.out.println("Primera caracteristica: " + hm_curses.get(k).getStr_mfirst_characteristic());
+            System.out.println("Segunda caracteristica: " + hm_curses.get(k).getStr_msecond_characteristic());
+            System.out.println("Tercera caracteristica: " + hm_curses.get(k).getStr_mthird_characteristic());
+            System.out.println("--------------");
+
+        }
     }
 
     @Override
@@ -140,50 +128,43 @@ public class JsonModel implements DataManager {
 
     @Override
     public HashMap<String, Entity> saveEntities() throws FileNotFoundException, IOException {
-        HashMap<String, Entity> hm_entities = new HashMap <String, Entity>();
+        HashMap<String, Entity> hm_entities = new HashMap<String, Entity>();
 
 
         try {
 
             String url = SERVER_PATH + GET_ENTITY; // Sacadas de configuracion
-            System.out.println("La url a la que lanzamos la petición es " + url); // Traza para pruebas
-
             String response = encargadoPeticiones.getRequest(url);
-
-
 
             // Parseamos la respuesta y la convertimos en un JSONObject
             JSONObject respuesta = (JSONObject) JSONValue.parse(response);
 
-             // El JSON recibido es correcto
-                String estado = (String) respuesta.get("estado");
-                // Si ok, obtenemos array de jugadores para recorrer y generar hashmap
-                if (estado.equals("ok")) {
-                    JSONArray array = (JSONArray) respuesta.get("Personas");
+            // El JSON recibido es correcto
+            String estado = (String) respuesta.get("estado");
+            // Si ok, obtenemos array de jugadores para recorrer y generar hashmap
+            if (estado.equals("ok")) {
+                JSONArray array = (JSONArray) respuesta.get("Personas");
 
-                    if (array.size() > 0) {
-                        for (int i = 0; i < array.size(); i++) {
-                            JSONObject row = (JSONObject) array.get(i);
+                if (array.size() > 0) {
+                    for (int i = 0; i < array.size(); i++) {
+                        JSONObject row = (JSONObject) array.get(i);
 
-                            String   str_mid = row.get("str_mid").toString();
-                            String  str_mname = row.get("str_mname").toString();
-                            String  str_mfirst_characteristic = row.get("str_mfirst_characteristic").toString();
-                            String  str_msecond_characteristic = row.get("str_msecond_characteristic").toString();
-                            String str_mthird_characteristic = row.get("str_mthird_characteristic").toString();
-                            curse = saveCurses().get(Integer.parseInt(row.get("curso").toString()));
+                        String str_mid = row.get("str_mid").toString();
+                        String str_mname = row.get("str_mname").toString();
+                        String str_mfirst_characteristic = row.get("str_mfirst_characteristic").toString();
+                        String str_msecond_characteristic = row.get("str_msecond_characteristic").toString();
+                        String str_mthird_characteristic = row.get("str_mthird_characteristic").toString();
+                        curse = saveCurses().get(Integer.parseInt(row.get("curso").toString()));
 
-                            newEntity = new Entity(str_mid,str_mname,str_mfirst_characteristic,str_msecond_characteristic,str_mthird_characteristic,curse);
+                        newEntity = new Entity(str_mid, str_mname, str_mfirst_characteristic, str_msecond_characteristic, str_mthird_characteristic, curse);
 
 
-                            hm_entities.put(str_mid, newEntity);
-                        }
-
-                        System.out.println("generado hashmap de entidades");
-                        System.out.println();
-
+                        hm_entities.put(str_mid, newEntity);
                     }
 
                 }
+
+            }
 
 
         } catch (Exception e) {
@@ -199,16 +180,13 @@ public class JsonModel implements DataManager {
 
     @Override
     public HashMap<Integer, Curse> saveCurses() throws IOException {
-        HashMap<Integer, Curse> hm_curses = new HashMap <Integer, Curse>();
+        HashMap<Integer, Curse> hm_curses = new HashMap<Integer, Curse>();
 
 
         try {
 
             String url = SERVER_PATH + GET_CURSE; // Sacadas de configuracion
-            System.out.println("La url a la que lanzamos la petición es " + url); // Traza para pruebas
-
             String response = encargadoPeticiones.getRequest(url);
-
 
 
             // Parseamos la respuesta y la convertimos en un JSONObject
@@ -224,21 +202,18 @@ public class JsonModel implements DataManager {
                     for (int i = 0; i < array.size(); i++) {
                         JSONObject row = (JSONObject) array.get(i);
 
-                       int int_id =  Integer.parseInt(row.get("int_id").toString());
+                        int int_id = Integer.parseInt(row.get("int_id").toString());
                         String str_mname = row.get("str_mname").toString();
-                        String  str_mfirst_characteristic = row.get("str_mfirst_characteristic").toString();
+                        String str_mfirst_characteristic = row.get("str_mfirst_characteristic").toString();
                         String str_msecond_characteristic = row.get("str_msecond_characteristic").toString();
                         String str_mthird_characteristic = row.get("str_mthird_characteristic").toString();
 
 
-                        newCurse = new Curse(int_id,str_mname,str_mfirst_characteristic,str_msecond_characteristic,str_mthird_characteristic);
+                        newCurse = new Curse(int_id, str_mname, str_mfirst_characteristic, str_msecond_characteristic, str_mthird_characteristic);
 
 
                         hm_curses.put(int_id, newCurse);
                     }
-
-                    System.out.println("generado hashmap de cursos");
-                    System.out.println();
 
                 }
 
@@ -258,7 +233,7 @@ public class JsonModel implements DataManager {
 
     @Override
     public void addAll(DataManager acces) {
-        HashMap<Integer, Curse> hm_curses = new  HashMap<Integer, Curse>();
+        HashMap<Integer, Curse> hm_curses = new HashMap<Integer, Curse>();
         try {
             hm_curses = saveCurses();
         } catch (IOException e) {
@@ -273,7 +248,7 @@ public class JsonModel implements DataManager {
                 e.printStackTrace();
             }
         }
-        HashMap<String, Entity> hm_entities = new  HashMap<String, Entity>();
+        HashMap<String, Entity> hm_entities = new HashMap<String, Entity>();
         try {
             hm_entities = saveEntities();
         } catch (IOException e) {
@@ -290,10 +265,6 @@ public class JsonModel implements DataManager {
         }
     }
 
-    public void anadirJugadorJSON(Entity auxEntity) {
 
-
-        }
-
-    }
+}
 
