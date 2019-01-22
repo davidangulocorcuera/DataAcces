@@ -19,7 +19,7 @@ public class JsonModel implements DataManager {
 
         encargadoPeticiones = new ApiRequests();
 
-        SERVER_PATH = "http://localhost/DavidAngulo/crudJson/";
+        SERVER_PATH = "http://localhost:8889/david_angulo/crudJson/";
         GET_ENTITY = "readEntity.php";
         GET_CURSE = "readCurse.php";
         SET_ENTITY = "writeEntity.php";

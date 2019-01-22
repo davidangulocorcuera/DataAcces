@@ -28,3 +28,9 @@ first_characteristic: adsgas
 second_characteristic: gdsagsa
 third_characteristic: gsagasg
 *
+id: 1
+name: bbdd
+first_characteristic: hola
+second_characteristic: todo
+third_characteristic: bien?
+*

@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Controller extends BbddModel {
-    public Controller(DataManager acces, BbddModel bbddModel, FileManagerModel fileManagerModel,JsonModel jsonModel) {
+    public Controller(DataManager acces, BbddModel bbddModel, FileManagerModel fileManagerModel,JsonModel jsonModel, MongoModel mongoModel) {
         this.acces = acces;
 
     }

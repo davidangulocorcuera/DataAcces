@@ -4,8 +4,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Main extends Controller {
-    public Main(DataManager acces, BbddModel bbddModel, FileManagerModel fileManagerModel,JsonModel jsonModel) {
-        super(acces, bbddModel, fileManagerModel,jsonModel);
+    public Main(DataManager acces, BbddModel bbddModel, FileManagerModel fileManagerModel,JsonModel jsonModel,MongoModel mongoModel) {
+        super(acces, bbddModel, fileManagerModel,jsonModel,mongoModel);
     }
 
     public static void main(String[] args) {
@@ -32,6 +32,8 @@ public class Main extends Controller {
             System.out.println("2 to acces into the txt file if you use entities");
             System.out.println("3 to acces into the hibernate bbdd");
             System.out.println("4 to acces into the Json bbdd");
+            System.out.println("5 to acces into the Mongo bbdd");
+
 
             int int_option1 = sc.nextInt();
             switch (int_option1) {
@@ -47,6 +49,9 @@ public class Main extends Controller {
                     break;
                 case 4:
                     controller.acces = new JsonModel();
+                    break;
+                case 5:
+                    controller.acces = new MongoModel();
                     break;
 
                 default:
