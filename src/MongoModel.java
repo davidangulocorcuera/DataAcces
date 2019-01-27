@@ -9,11 +9,11 @@ import java.util.HashMap;
 
 public class MongoModel implements DataManager {
 
-    public static void main(String[] args) {
+    public MongoModel(){
         try{
             MongoClient mongoClient = new MongoClient( "localhost" , 27017 );
-            MongoDatabase db = mongoClient.getDatabase("maquinarefrescos");
-            MongoCollection<Document> colection = db.getCollection("depositos");
+            MongoDatabase db = mongoClient.getDatabase("aplicacionjaime3");
+            MongoCollection<Document> colection = db.getCollection("entidades");
             System.out.println("connected");
 
         }catch (Exception e){
