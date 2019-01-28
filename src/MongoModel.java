@@ -61,15 +61,9 @@ public class MongoModel implements DataManager {
         HashMap<String, Entity> entities = new HashMap<>();
         Entity entity = new Entity();
         Curse curse = new Curse();
+        MongoCollection<Document> colection = db.getCollection("usuarios");
 
-        if(db == null){
-            System.out.println("db es null");
-        }else{
-            System.out.println("db no es null");
 
-        }
-
-        MongoCollection<Document> colection = db.getCollection("entidades");
         for (Document document : colection.find()) {
                 curse = new Curse();
                 entity = new Entity();
@@ -79,7 +73,8 @@ public class MongoModel implements DataManager {
                 entity.setStr_msecond_characteristic(document.get("caracteristicaDos").toString());
                 entity.setStr_mthird_characteristic(document.get("caracteristicaTres").toString());
 
-                obj = (JSONObject)document.get("curso");
+
+                Document obj = (Document) document.get("curso");
 
                 curse.setInt_id(Integer.parseInt(obj.get("id").toString()));
                 curse.setStr_mname(obj.get("nombre").toString());
