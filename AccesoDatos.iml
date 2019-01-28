@@ -11,5 +11,6 @@
     <orderEntry type="library" name="HibernateLib" level="project" />
     <orderEntry type="library" name="json_simple-1.1" level="project" />
     <orderEntry type="library" name="bson-3.0.1" level="project" />
+    <orderEntry type="library" name="json_simple-1.11" level="project" />
   </component>
 </module>
