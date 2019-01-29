@@ -14,21 +14,20 @@ import java.util.HashMap;
 
 public class MongoModel implements DataManager {
     MongoDatabase db;
-    private  JSONObject obj;
+    private JSONObject obj;
     private JSONArray arr;
 
-    public MongoModel(){
-        try{
-            MongoClient mongoClient = new MongoClient( "localhost" , 27017 );
+    public MongoModel() {
+        try {
+            MongoClient mongoClient = new MongoClient("localhost", 27017);
             db = mongoClient.getDatabase("aplicacionjaime4");
             System.out.println("connected");
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
     }
-
 
 
     @Override
@@ -65,28 +64,28 @@ public class MongoModel implements DataManager {
 
 
         for (Document document : colection.find()) {
-                curse = new Curse();
-                entity = new Entity();
-                entity.setStr_mid(document.get("id").toString());
-                entity.setStr_mname(document.get("nombre").toString());
-                entity.setStr_mfirst_characteristic(document.get("caracteristicaUno").toString());
-                entity.setStr_msecond_characteristic(document.get("caracteristicaDos").toString());
-                entity.setStr_mthird_characteristic(document.get("caracteristicaTres").toString());
+            curse = new Curse();
+            entity = new Entity();
+            entity.setStr_mid(document.get("id").toString());
+            entity.setStr_mname(document.get("nombre").toString());
+            entity.setStr_mfirst_characteristic(document.get("caracteristicaUno").toString());
+            entity.setStr_msecond_characteristic(document.get("caracteristicaDos").toString());
+            entity.setStr_mthird_characteristic(document.get("caracteristicaTres").toString());
 
 
-                Document obj = (Document) document.get("curso");
+            Document obj = (Document) document.get("curso");
 
-                curse.setInt_id(Integer.parseInt(obj.get("id").toString()));
-                curse.setStr_mname(obj.get("nombre").toString());
-                curse.setStr_mfirst_characteristic(obj.get("caracteristicaUno").toString());
-                curse.setStr_msecond_characteristic(obj.get("caracteristicaDos").toString());
-                curse.setStr_mthird_characteristic(obj.get("caracteristicaTres").toString());
+            curse.setInt_id(Integer.parseInt(obj.get("id").toString()));
+            curse.setStr_mname(obj.get("nombre").toString());
+            curse.setStr_mfirst_characteristic(obj.get("caracteristicaUno").toString());
+            curse.setStr_msecond_characteristic(obj.get("caracteristicaDos").toString());
+            curse.setStr_mthird_characteristic(obj.get("caracteristicaTres").toString());
 
-                entity.setCurse(curse);
+            entity.setCurse(curse);
 
-                entities.put(entity.getStr_mid(),entity);
+            entities.put(entity.getStr_mid(), entity);
 
-                //metiendo los datos en el map
+            //metiendo los datos en el map
 
 
         }
@@ -95,7 +94,22 @@ public class MongoModel implements DataManager {
 
     @Override
     public HashMap<Integer, Curse> saveCurses() throws IOException {
-        return null;
+        HashMap<Integer, Curse> curses = new HashMap<>();
+        Entity entity = new Entity();
+        Curse curse = new Curse();
+        MongoCollection<Document> colection = db.getCollection("usuarios");
+        for (Document document : colection.find()) {
+            curse = new Curse();
+            Document obj = (Document) document.get("curso");
+            curse.setInt_id(Integer.parseInt(obj.get("id").toString()));
+            curse.setStr_mname(obj.get("nombre").toString());
+            curse.setStr_mfirst_characteristic(obj.get("caracteristicaUno").toString());
+            curse.setStr_msecond_characteristic(obj.get("caracteristicaDos").toString());
+            curse.setStr_mthird_characteristic(obj.get("caracteristicaTres").toString());
+            curses.put(curse.getInt_id(), curse);
+
+        }
+        return curses;
     }
 
     @Override
