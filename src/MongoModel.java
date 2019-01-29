@@ -42,12 +42,30 @@ public class MongoModel implements DataManager {
 
     @Override
     public void showAll() throws FileNotFoundException, IOException {
-
+        MongoCollection<Document> colection = db.getCollection("usuarios");
+        for (Document document : colection.find()) {
+            System.out.println("id entidad" + document.get("id").toString());
+            System.out.println("nombre " + document.get("nombre").toString());
+            System.out.println("caracteristicaUno " + document.get("caracteristicaUno").toString());
+            System.out.println("caracteristicaDos " + document.get("caracteristicaDos").toString());
+            System.out.println("caracteristicaTres " + document.get("caracteristicaTres").toString());
+            Document obj = (Document) document.get("curso");
+            System.out.println("id curso" + obj.get("id").toString());
+            System.out.println("-------------------------------------------------------------------");
+        }
     }
 
     @Override
     public void showAllCurses() throws FileNotFoundException, IOException {
-
+        MongoCollection<Document> colection = db.getCollection("usuarios");
+        for (Document document : colection.find()) {
+            Document obj = (Document) document.get("curso");
+            System.out.println("id " + obj.get("id").toString());
+            System.out.println("nombre " + obj.get("nombre").toString());
+            System.out.println("caracteristicaUno " + obj.get("caracteristicaUno").toString());
+            System.out.println("caracteristicaDos " + obj.get("caracteristicaDos").toString());
+            System.out.println("caracteristicaTres " + obj.get("caracteristicaTres").toString());
+        }
     }
 
     @Override
@@ -89,6 +107,8 @@ public class MongoModel implements DataManager {
 
 
         }
+        System.out.println("hay " + entities.size() + " entidades");
+
         return entities;
     }
 
@@ -109,6 +129,7 @@ public class MongoModel implements DataManager {
             curses.put(curse.getInt_id(), curse);
 
         }
+        System.out.println("hay " + curses.size() + " cursos");
         return curses;
     }
 
